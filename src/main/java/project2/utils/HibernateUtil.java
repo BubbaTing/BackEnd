@@ -16,12 +16,11 @@ public class HibernateUtil {
 		Configuration configuration = new Configuration()
 				.configure()
 				// Add username/password from environment variables
-				.setProperty("hibernate.connection.username", System.getenv("EM_ROLE"))
-				.setProperty("hibernate.connection.password", System.getenv("EM_PASS"));
+				.setProperty("hibernate.connection.username", System.getenv("AWS_ROLE"))
+				.setProperty("hibernate.connection.password", System.getenv("AWS_PASS"));
 		
 		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 				.applySettings(configuration.getProperties()).build();
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-		
 	}
 }
