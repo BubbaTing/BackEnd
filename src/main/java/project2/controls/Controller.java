@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("events")
 public class Controller {
 	public void getLogin () {
-		
+		System.out.println("checking if Jekins is working");
 	}
 }
