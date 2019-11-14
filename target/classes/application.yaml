@@ -1,0 +1,13 @@
+server:
+  port: 8080
+  
+spring:
+  application:
+    name: project2
+  datasource:
+    username: ${AWS_ROLE}
+    password: ${AWS_PASS}
+    url: jdbc:postgresql://database-1.c6vmcdm1hagz.us-east-2.rds.amazonaws.com:5432/postgres
+  jpa:
+    hibernate:      ddl-auto: update
+  
