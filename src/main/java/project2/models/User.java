@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@ManyToMany
+//	@ManyToMany
 //	@JoinTable(name="")
 	private int userid;
 	
