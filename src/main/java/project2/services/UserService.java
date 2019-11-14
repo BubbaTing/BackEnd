@@ -1,19 +1,17 @@
 package project2.services;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Service;
 
+import project2.daos.UserDao;
+import project2.models.Credentials;
 import project2.models.User;
 
 @Service
 public class UserService {
+	UserDao userdao = new UserDao();
 
-	public User createUser(@Valid User user) {
-		System.out.println("Test1: Printing from the UserService class");
-		return user;
+	public User createUser(Credentials cred) {
+		System.out.println("Saving a User");
+		return userdao.save(cred);
 	}
-	
-	
-
 }
