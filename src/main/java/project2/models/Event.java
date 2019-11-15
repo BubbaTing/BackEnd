@@ -13,36 +13,124 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(nullable=false, length = 50)
 	private String title;
-	
+
 	@Column(nullable=false)
 	private int type;
-	
+
 	@Column(nullable=false)
 	private Timestamp created;
-	
+
 	@Column(nullable=true)
 	private Timestamp startTime;
-	
+
 	@Column(nullable=true)
 	private Timestamp endTime;
-	
+
 	@Column(nullable=true, length = 250)
 	private String description;
-	
+
 	@Column(nullable=false, length = 250)
 	private String location;
-	
+
 	@Column(nullable=true, length = 250)
 	private String address;
-	
+
 	@Column(nullable=true)
 	private String imgAddr;
-	
+
 	@Column(nullable=false)
 	private int visibility;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
+
+	public Timestamp getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Timestamp startTime) {
+		this.startTime = startTime;
+	}
+
+	public Timestamp getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Timestamp endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getImgAddr() {
+		return imgAddr;
+	}
+
+	public void setImgAddr(String imgAddr) {
+		this.imgAddr = imgAddr;
+	}
+
+	public int getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(int visibility) {
+		this.visibility = visibility;
+	}
 
 	@Override
 	public int hashCode() {
@@ -147,8 +235,6 @@ public class Event {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
+
+
 }
