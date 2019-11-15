@@ -10,7 +10,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import project2.models.Credentials;
+import project2.models.UserRegistration;
 import project2.models.Users;
 import project2.services.PasswordService;
 
@@ -27,14 +27,12 @@ public class UserRepository{
 	EntityManager em;
 
 	/**
-	 * Saves a new user given new Credentials. Returns null if the password and confirmed password do not match
+	 * Saves a new user given new UserRegistration. Returns null if the password and confirmed password do not match
 	 * @param cred
 	 * @return
 	 */
-	public Users save(Credentials cred) {
-			System.out.println(em.toString());
+	public Users save(UserRegistration cred) {
 			Session sess = em.unwrap(Session.class);
-			System.out.println("Saving User...");
 			Users user = newUser(cred);
 			byte[] salt = passServ.genSalt();
 			byte[] hash = passServ.genHash(salt, cred.getPassword());
@@ -42,18 +40,21 @@ public class UserRepository{
 			user.setSalt(salt);
 			
 			sess.persist(user);
+
+			System.out.println("User Write Successful...");
 			return user;
 	}
 	
 	/**
-	 * Creates a new user given a Credentials object
+	 * Creates a new user given a UserRegistration object
 	 */
-	private Users newUser(Credentials cred) {
+	private Users newUser(UserRegistration cred) {
 		Users user = new Users();
 		user.setCreatedDate(new Timestamp(date.getTime()));
 		user.setEmail(cred.getEmail());
 		user.setFirstname(cred.getFirstname());
 		user.setLastname(cred.getLastname());
+		user.setAvatarURL(cred.getAvatar_url());
 		return user;
 	}
 }
