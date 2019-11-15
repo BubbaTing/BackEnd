@@ -10,4 +10,4 @@ spring:
     url: jdbc:postgresql://revature2.chvwilb5xwei.us-east-1.rds.amazonaws.com:5432/postgres
   jpa:
     hibernate:      ddl-auto: update
-  
+ 

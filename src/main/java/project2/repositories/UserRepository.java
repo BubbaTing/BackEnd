@@ -1,44 +1,55 @@
-package project2.daos;
+package project2.repositories;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import project2.models.Credentials;
-import project2.models.User;
+import project2.models.Users;
 import project2.services.PasswordService;
-import project2.utils.HibernateUtil;
 
-public class UserDao {
-	Date date = new Date();
-	PasswordService passServ = new PasswordService();
+@Repository
+public class UserRepository{
 	
+	Date date = new Date();
+	
+	@Autowired 
+	PasswordService passServ;
+	
+	@PersistenceContext
+	@Autowired (required = true)
+	EntityManager em;
+
 	/**
 	 * Saves a new user given new Credentials. Returns null if the password and confirmed password do not match
 	 * @param cred
 	 * @return
 	 */
-	public User save(Credentials cred) {
-		if (cred.getPassword() != cred.getConfirmPassword()) return null;
-		try(Session sess = HibernateUtil.sessionFactory.openSession()) {
-			User user = newUser(cred);
+	public Users save(Credentials cred) {
+			System.out.println(em.toString());
+			Session sess = em.unwrap(Session.class);
+			System.out.println("Saving User...");
+			Users user = newUser(cred);
 			byte[] salt = passServ.genSalt();
 			byte[] hash = passServ.genHash(salt, cred.getPassword());
 			user.setPassword(hash);
 			user.setSalt(salt);
 			
-			sess.save(user);
-			
+			sess.persist(user);
 			return user;
-		}
 	}
 	
 	/**
 	 * Creates a new user given a Credentials object
 	 */
-	private User newUser(Credentials cred) {
-		User user = new User();
+	private Users newUser(Credentials cred) {
+		Users user = new Users();
 		user.setCreatedDate(new Timestamp(date.getTime()));
 		user.setEmail(cred.getEmail());
 		user.setFirstname(cred.getFirstname());
