@@ -84,10 +84,7 @@ public class Credentials {
 		this.email = email;
 	}
 	public String getPassword(){
-		if (this.password == this.confirmPassword) {
-			return password;
-		}
-		return null;
+		return this.password;
 	}
 	public void setPassword(String password) {
 		this.password = password;

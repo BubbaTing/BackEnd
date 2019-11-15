@@ -8,17 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 
 
 @Entity
-public class User {
+public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@ManyToMany
-//	@JoinTable(name="")
 	private int userid;
 	
 	@Column(nullable = false, length = 25)
@@ -40,6 +36,8 @@ public class User {
 	private Timestamp createdDate;
 	
 	private Timestamp lastLogin;
+	@Column(nullable=true)
+	private String avatarURL;
 
 	public int getUserid() {
 		return userid;
@@ -105,7 +103,7 @@ public class User {
 		this.lastLogin = lastLogin;
 	}
 
-	public User(int userid, String firstname, String lastname, String email, byte[] password, byte[] salt,
+	public Users(int userid, String firstname, String lastname, String email, byte[] password, byte[] salt,
 			Timestamp createdDate, Timestamp lastLogin) {
 		super();
 		this.userid = userid;
@@ -118,7 +116,7 @@ public class User {
 		this.lastLogin = lastLogin;
 	}
 
-	public User() {
+	public Users() {
 		super();
 	}
 
@@ -145,7 +143,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Users other = (Users) obj;
 		if (createdDate == null) {
 			if (other.createdDate != null)
 				return false;

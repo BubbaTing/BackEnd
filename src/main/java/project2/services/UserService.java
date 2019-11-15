@@ -1,17 +1,27 @@
 package project2.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import project2.daos.UserDao;
+
 import project2.models.Credentials;
-import project2.models.User;
+import project2.models.Users;
+import project2.repositories.UserRepository;
 
 @Service
 public class UserService {
-	UserDao userdao = new UserDao();
+	UserRepository userRepo = new UserRepository();
+	
+	@Autowired
+	public UserService(UserRepository userRepo) {
+		super();
+		this.userRepo = userRepo;
+	}
 
-	public User createUser(Credentials cred) {
-		System.out.println("Saving a User");
-		return userdao.save(cred);
+	@Transactional
+	public Users createUser(Credentials cred) {
+		System.out.println("Service level create user");
+		return userRepo.save(cred);
 	}
 }

@@ -6,6 +6,9 @@ import java.security.spec.KeySpec;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class PasswordService {
 	/**
 	 * generates a salt value as a byte[], length 512

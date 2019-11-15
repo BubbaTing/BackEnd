@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import project2.models.Credentials;
-import project2.models.User;
+import project2.models.Users;
 import project2.services.UserService;
 
 
@@ -21,7 +21,7 @@ public class UserController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public User createUser (@RequestBody Credentials cred) {
+	public Users createUser (@RequestBody Credentials cred) {
 		System.out.println("Starting POST method.");
 		return userService.createUser(cred);
 	}
