@@ -1,27 +1,32 @@
 package project2.models;
 
-public class Credentials {
+public class UserRegistration {
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String password;
 	private String confirmPassword;
-	public Credentials() {
+	private String avatar_url;
+	
+	public UserRegistration() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Credentials(String firstname, String lastname, String email, String password, String confirmPassword) {
+	public UserRegistration(String firstname, String lastname, String email, String password, String confirmPassword,
+			String avatar_url) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
 		this.password = password;
 		this.confirmPassword = confirmPassword;
+		this.avatar_url = avatar_url;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((avatar_url == null) ? 0 : avatar_url.hashCode());
 		result = prime * result + ((confirmPassword == null) ? 0 : confirmPassword.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
@@ -37,7 +42,12 @@ public class Credentials {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Credentials other = (Credentials) obj;
+		UserRegistration other = (UserRegistration) obj;
+		if (avatar_url == null) {
+			if (other.avatar_url != null)
+				return false;
+		} else if (!avatar_url.equals(other.avatar_url))
+			return false;
 		if (confirmPassword == null) {
 			if (other.confirmPassword != null)
 				return false;
@@ -83,8 +93,8 @@ public class Credentials {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword(){
-		return this.password;
+	public String getPassword() {
+		return password;
 	}
 	public void setPassword(String password) {
 		this.password = password;
@@ -95,4 +105,11 @@ public class Credentials {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
+	public String getAvatar_url() {
+		return avatar_url;
+	}
+	public void setAvatar_url(String avatar_url) {
+		this.avatar_url = avatar_url;
+	}
+
 }
