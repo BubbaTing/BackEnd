@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import project2.models.Credentials;
+import project2.models.UserRegistration;
 import project2.models.Users;
 import project2.repositories.UserRepository;
 
@@ -20,8 +20,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public Users createUser(Credentials cred) {
-		System.out.println("Service level create user");
+	public Users createUser(UserRegistration cred) {
 		return userRepo.save(cred);
 	}
 }

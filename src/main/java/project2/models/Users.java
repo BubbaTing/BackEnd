@@ -39,6 +39,14 @@ public class Users {
 	@Column(nullable=true)
 	private String avatarURL;
 
+	public String getAvatarURL() {
+		return avatarURL;
+	}
+
+	public void setAvatarURL(String avatarURL) {
+		this.avatarURL = avatarURL;
+	}
+
 	public int getUserid() {
 		return userid;
 	}
