@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
-
 @Entity
 public class Users {
 	@Id
@@ -29,7 +27,7 @@ public class Users {
 	@Column(nullable = false, length = 150)
 	private byte[] password;
 	
-	@Column(nullable = false, length=20)
+	@Column(nullable = false, length = 20)
 	private byte[] salt;
 	
 	@Column(nullable = false)
