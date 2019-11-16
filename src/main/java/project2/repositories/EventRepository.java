@@ -5,8 +5,8 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.websocket.Session;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,10 +27,10 @@ public class EventRepository {
 	 * @return
 	 */
 	public Event save(Event party) {
-		Session sess = em.unwrap(Session.class);
+		Session eventsess = em.unwrap(Session.class);
 		Event event = newEvent(party);
 		
-		sess.persist(party);
+		eventsess.persist(event);
 		
 		
 		return event;
@@ -53,7 +53,7 @@ public class EventRepository {
 		new_party.setAddress(party.getAddress());
 		new_party.setImgAddr(party.getImgAddr());
 		new_party.setVisibility(party.getVisibility());
-		return null;
+		return new_party;
 	}
 
 }
