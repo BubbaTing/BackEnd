@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import project2.models.Credentials;
+import project2.models.UserResponse;
 import project2.models.Users;
 import project2.services.UserService;
 
@@ -20,10 +21,11 @@ public class AuthController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
-	public int authCredentials(@RequestBody Credentials cred) {
+	public UserResponse authCredentials(@RequestBody Credentials cred) {
 		System.out.println("Attempting User Auth...");
 		Users user = userService.getUserByCred(cred);
-		return user.getUserid();
+		UserResponse uresp = new UserResponse(user);
+		return uresp;
 	}
 	
 	@Autowired

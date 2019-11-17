@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.stereotype.Service;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.InvalidClaimException;
 import io.jsonwebtoken.Jws;
@@ -35,10 +37,9 @@ public class JWTService {
 						.setSubject(user.getLastname() + "," +user.getFirstname())
 						.setIssuedAt(new Date())
 						.setExpiration(new Date(System.currentTimeMillis() - 3600 * 1000))
-						.claim("userId", user.getUserid())
+						.claim("userId", user.getId())
 						.signWith(key)
 						.compact();
-		
 		return jws;
 	}
 	

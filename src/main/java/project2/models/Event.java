@@ -13,8 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
-
-
 @Entity
 public class Event {
 	@Id
@@ -270,7 +268,6 @@ public class Event {
 
 	public Event() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
