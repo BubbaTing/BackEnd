@@ -5,8 +5,8 @@ import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.hibernate.Session;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,10 +27,10 @@ public class EventRepository {
 	 * @return
 	 */
 	public Event save(Event party) {
-		Session sess = em.unwrap(Session.class);
+		Session eventsess = em.unwrap(Session.class);
 		Event event = newEvent(party);
 		
-		sess.persist(event);
+		eventsess.persist(event);
 		
 		
 		return event;
