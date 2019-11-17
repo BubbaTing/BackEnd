@@ -61,11 +61,5 @@ public class Permissions {
 	}
 	public Permissions() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	
-	
-	
-
 }
