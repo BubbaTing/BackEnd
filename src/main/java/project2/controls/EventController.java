@@ -26,6 +26,7 @@ public class EventController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Event createEvent(@RequestBody Event party) {
+		System.out.println("Event Created Successfully");
 		return eventService.createEvent(party);
 	}
 
