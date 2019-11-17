@@ -2,18 +2,30 @@ package project2.models;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userid;
+	private int id;
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "join_event" ,
+	joinColumns= {@JoinColumn(name = "user_id")},
+	inverseJoinColumns= {@JoinColumn(name = "event_id")})
+	
+	private List<Event> userId;
 	
 	@Column(nullable = false, length = 25)
 	private String firstname;
@@ -37,6 +49,15 @@ public class Users {
 	@Column(nullable=true)
 	private String avatarURL;
 
+			
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getAvatarURL() {
 		return avatarURL;
 	}
@@ -44,13 +65,13 @@ public class Users {
 	public void setAvatarURL(String avatarURL) {
 		this.avatarURL = avatarURL;
 	}
-
-	public int getUserid() {
-		return userid;
+	
+	public List<Event> getUserId() {
+		return userId;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setUserId(List<Event> userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstname() {
@@ -109,10 +130,14 @@ public class Users {
 		this.lastLogin = lastLogin;
 	}
 
-	public Users(int userid, String firstname, String lastname, String email, byte[] password, byte[] salt,
-			Timestamp createdDate, Timestamp lastLogin) {
+	
+	
+	
+	public Users(int id, List<Event> userId, String firstname, String lastname, String email, byte[] password,
+			byte[] salt, Timestamp createdDate, Timestamp lastLogin, String avatarURL) {
 		super();
-		this.userid = userid;
+		this.id = id;
+		this.userId = userId;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;
@@ -120,24 +145,30 @@ public class Users {
 		this.salt = salt;
 		this.createdDate = createdDate;
 		this.lastLogin = lastLogin;
+		this.avatarURL = avatarURL;
 	}
 
-	public Users() {
-		super();
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname
+				+ ", email=" + email + ", password=" + Arrays.toString(password) + ", salt=" + Arrays.toString(salt)
+				+ ", createdDate=" + createdDate + ", lastLogin=" + lastLogin + ", avatarURL=" + avatarURL + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((avatarURL == null) ? 0 : avatarURL.hashCode());
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + id;
 		result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		result = prime * result + Arrays.hashCode(password);
 		result = prime * result + Arrays.hashCode(salt);
-		result = prime * result + userid;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -150,6 +181,11 @@ public class Users {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
+		if (avatarURL == null) {
+			if (other.avatarURL != null)
+				return false;
+		} else if (!avatarURL.equals(other.avatarURL))
+			return false;
 		if (createdDate == null) {
 			if (other.createdDate != null)
 				return false;
@@ -165,6 +201,8 @@ public class Users {
 				return false;
 		} else if (!firstname.equals(other.firstname))
 			return false;
+		if (id != other.id)
+			return false;
 		if (lastLogin == null) {
 			if (other.lastLogin != null)
 				return false;
@@ -179,10 +217,19 @@ public class Users {
 			return false;
 		if (!Arrays.equals(salt, other.salt))
 			return false;
-		if (userid != other.userid)
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
+
+	public Users() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
 	
 }
