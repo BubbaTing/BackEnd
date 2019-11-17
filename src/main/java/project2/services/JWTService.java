@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
-import org.springframework.stereotype.Service;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.InvalidClaimException;
 import io.jsonwebtoken.Jws;
@@ -13,7 +11,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import project2.models.Users;
 
-@Service
+
 public class JWTService {
 	
 	private String secret = System.getenv("JWT_SECRET");
