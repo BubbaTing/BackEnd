@@ -13,8 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 
-
-
 @Entity
 public class Event {
 	@Id

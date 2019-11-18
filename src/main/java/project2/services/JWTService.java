@@ -13,7 +13,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import project2.models.Users;
 
-@Service
+
 public class JWTService {
 	
 	private String secret = System.getenv("JWT_SECRET");
@@ -37,10 +37,9 @@ public class JWTService {
 						.setSubject(user.getLastname() + "," +user.getFirstname())
 						.setIssuedAt(new Date())
 						.setExpiration(new Date(System.currentTimeMillis() - 3600 * 1000))
-						.claim("userId", user.getUserid())
+						.claim("userId", user.getId())
 						.signWith(key)
 						.compact();
-		
 		return jws;
 	}
 	
