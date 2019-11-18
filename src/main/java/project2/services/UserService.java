@@ -11,21 +11,21 @@ import project2.models.Users;
 
 @Service
 public class UserService {
-	UserDao userRepo = new UserDao();
+	UserDao userDao = new UserDao();
 	
 	@Autowired
-	public UserService(UserDao userRepo) {
+	public UserService(UserDao userDao) {
 		super();
-		this.userRepo = userRepo;
+		this.userDao = userDao;
 	}
 
 	@Transactional
 	public Users createUser(UserRegistration regreq) {
-		return userRepo.save(regreq);
+		return userDao.save(regreq);
 	}
 	
 	@Transactional
 	public Users getUserByCred(Credentials cred) {
-		return userRepo.getUserByCred(cred);
+		return userDao.getUserByCred(cred);
 	}
 }
