@@ -1,5 +1,9 @@
 package project2.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
@@ -13,15 +17,31 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import project2.models.Users;
 
-
+@Service
 public class JWTService {
-	
-	private String secret = System.getenv("JWT_SECRET");
-	byte[] keyBytes = secret.getBytes();
-	SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+	byte[] secretBytes;
 	
 	public JWTService() {
 		super();
+		secretBytes = getSecretBytes();
+	}
+	
+	private byte[] getSecretBytes() {
+		Path path = Paths.get(System.getenv("JWT_SECRET"));
+		System.out.println(path);
+		try {
+			return Files.readAllBytes(path);
+		} catch (IOException e) {
+			System.out.println("JWT Secret Read Error!");
+			e.printStackTrace();
+			return null;
+		}
+		
+//		return Keys.hmacShaKeyFor(this.keyBytes);
+	}
+	
+	private SecretKey getSecret() {
+		return Keys.hmacShaKeyFor(secretBytes);
 	}
 
 	/**
@@ -38,7 +58,7 @@ public class JWTService {
 						.setIssuedAt(new Date())
 						.setExpiration(new Date(System.currentTimeMillis() - 3600 * 1000))
 						.claim("userId", user.getId())
-						.signWith(key)
+						.signWith(getSecret())
 						.compact();
 		return jws;
 	}
@@ -53,7 +73,7 @@ public class JWTService {
 		try {
 			Jws<Claims> Claims = Jwts.parser()
 				.requireIssuer("TeamVoldemort")
-				.setSigningKey(key)
+				.setSigningKey(getSecret())
 				.parseClaimsJws(jwtString);
 			return Claims.getBody().get("userId", int.class);
 		} catch (InvalidClaimException e){
