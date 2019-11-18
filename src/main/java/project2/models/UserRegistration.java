@@ -10,7 +10,6 @@ public class UserRegistration {
 	
 	public UserRegistration() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public UserRegistration(String firstname, String lastname, String email, String password, String confirmPassword,
 			String avatar_url) {

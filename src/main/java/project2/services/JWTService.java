@@ -1,5 +1,9 @@
 package project2.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import javax.crypto.SecretKey;
@@ -15,13 +19,35 @@ import project2.models.Users;
 
 @Service
 public class JWTService {
-	
-	private String secret = System.getenv("JWT_SECRET");
-	byte[] keyBytes = secret.getBytes();
-	SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+	byte[] secretBytes;
 	
 	public JWTService() {
 		super();
+		secretBytes = getSecretBytes();
+	}
+	
+	/**
+	 * Returns a byte[] of the JWT_SECRET Environment Variable. Be sure to share this with each developer who is building the project.
+	 * @return
+	 */
+	private byte[] getSecretBytes() {
+		Path path = Paths.get(System.getenv("JWT_SECRET"));
+		System.out.println(path);
+		try {
+			return Files.readAllBytes(path);
+		} catch (IOException e) {
+			System.out.println("JWT Secret Read Error!");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Returns a SecretKey object, called by JWT creation/read methods
+	 * @return
+	 */
+	private SecretKey getSecret() {
+		return Keys.hmacShaKeyFor(secretBytes);
 	}
 
 	/**
@@ -40,7 +66,6 @@ public class JWTService {
 						.claim("userId", user.getid())
 						.signWith(key)
 						.compact();
-		
 		return jws;
 	}
 	
@@ -54,7 +79,7 @@ public class JWTService {
 		try {
 			Jws<Claims> Claims = Jwts.parser()
 				.requireIssuer("TeamVoldemort")
-				.setSigningKey(key)
+				.setSigningKey(getSecret())
 				.parseClaimsJws(jwtString);
 			return Claims.getBody().get("userId", int.class);
 		} catch (InvalidClaimException e){

@@ -1,4 +1,4 @@
-package project2.repositories;
+package project2.daos;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import project2.models.Event;
 
 @Repository
-public class EventRepository {
+public class EventDao {
 	
 	Date date = new Date();
 	

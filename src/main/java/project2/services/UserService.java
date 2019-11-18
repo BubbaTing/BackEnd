@@ -4,28 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import project2.daos.UserDao;
 import project2.models.Credentials;
 import project2.models.UserRegistration;
 import project2.models.Users;
-import project2.repositories.UserRepository;
 
 @Service
 public class UserService {
-	UserRepository userRepo = new UserRepository();
+	UserDao userDao = new UserDao();
 	
 	@Autowired
-	public UserService(UserRepository userRepo) {
+	public UserService(UserDao userDao) {
 		super();
-		this.userRepo = userRepo;
+		this.userDao = userDao;
 	}
 
 	@Transactional
 	public Users createUser(UserRegistration regreq) {
-		return userRepo.save(regreq);
+		return userDao.save(regreq);
 	}
 	
 	@Transactional
 	public Users getUserByCred(Credentials cred) {
-		return userRepo.getUserByCred(cred);
+		return userDao.getUserByCred(cred);
 	}
 }

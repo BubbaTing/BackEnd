@@ -1,6 +1,7 @@
-package project2.repositories;
+package project2.daos;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -13,15 +14,15 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import project2.models.Credentials;
 import project2.models.UserRegistration;
 import project2.models.Users;
 import project2.services.PasswordService;
 
-@Repository
-public class UserRepository{
+@Component
+public class UserDao{
 	
 	Date date = new Date();
 	
@@ -75,21 +76,20 @@ public class UserRepository{
 		CriteriaBuilder cb = sess.getCriteriaBuilder();
 		CriteriaQuery<Users> cr = cb.createQuery(Users.class);
 		Root<Users> root = cr.from(Users.class);
-		cr.select(root).where(cb.like(root.get("firstname"), cred.getUsername()));
+		cr.select(root).where(cb.like(root.get("email"), cred.getUsername()));
 		
 		Query<Users> query = sess.createQuery(cr);
 		List<Users> results = query.getResultList();
 		
-		Users user = results.get(0);
-		
-		if(user == null) {
+		if (results.size() == 0) {
 			System.out.println("User auth retrieved no users from DB...");
 			return null;
 		}
 		
+		Users user = results.get(0);
 		byte[] hash = passServ.genHash(user.getSalt(), cred.getPassword());
 		
-		if(hash == user.getPassword()) {
+		if(Arrays.equals(hash, user.getPassword())) {
 			System.out.println("User Auth successful...");
 			return user;
 		} else {

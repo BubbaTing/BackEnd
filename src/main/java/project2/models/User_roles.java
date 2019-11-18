@@ -77,7 +77,6 @@ public class User_roles {
 
 	public User_roles() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }
