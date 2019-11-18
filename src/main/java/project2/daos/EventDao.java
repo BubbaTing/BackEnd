@@ -8,11 +8,12 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import project2.models.Event;
 
-@Repository
+@Component
 public class EventDao {
 	
 	Date date = new Date();
