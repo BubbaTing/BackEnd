@@ -2,12 +2,19 @@ package project2.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User_roles {
 	
 	@Id
+	//@OneToMany(fetch=FetchType.LAZY)
+	//@JoinTable(name = "attendants")
+	//@JoinColumn(name = "user_role_id")
 	private int user_role_id;
 		
 	@Column(nullable = false, length = 25)
@@ -72,7 +79,4 @@ public class User_roles {
 		super();
 	}
 
-	
-	
-	
 }
