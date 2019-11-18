@@ -11,6 +11,7 @@ public class Permissions {
 	private int permissions_id;
 	@Column(nullable = false, length = 25)
 	private String permissions_description;
+	
 	public int getPermissions_id() {
 		return permissions_id;
 	}
