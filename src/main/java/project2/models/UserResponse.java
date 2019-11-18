@@ -79,7 +79,7 @@ public class UserResponse {
 		super();
 	}
 	public UserResponse(Users user) {
-		this.userid = user.getId();
+		this.userid = user.getid();
 		this.firstname = user.getFirstname();
 		this.email = user.getEmail();
 		this.avatar = user.getAvatarURL();

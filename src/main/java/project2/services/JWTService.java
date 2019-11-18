@@ -62,7 +62,7 @@ public class JWTService {
 						.setSubject(user.getLastname() + "," +user.getFirstname())
 						.setIssuedAt(new Date())
 						.setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000))
-						.claim("userId", user.getId())
+						.claim("userId", user.getid())
 						.signWith(getSecret())
 						.compact();
 		return jws;

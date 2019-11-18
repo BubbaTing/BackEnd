@@ -22,7 +22,7 @@ public class JWTServiceTests {
 	String testJWS = "eyJhbGciOiJIUzUxMiJ9"
 			+ ".eyJpc3MiOiJUZWFtVm9sZGVtb3J0Iiwic3ViIjoiSXJvbm1hbixPcmFuZ2UiLCJpYXQiOjE1NzQxMDQ1NjIsImV4cCI6MTU3NDEwMDk2MiwidXNlcklkIjozfQ"
 			+ ".vmc3x_dEkCJ-eLoqjNDsADYNnJNipqH5awKgWcFmOd-HqqSRIY21t4FbrhWlrOEbDqhJLmbCb-ldDr53oknxEw";
-	Users testUser  = new Users(1, null, "John", "Doe", "johndoe@exmaple.com", null, null, null, null, null);
+	Users testUser  = new Users(1, "John", "Doe", "johndoe@exmaple.com", null, null, null, null, null);
 	
 	@Test
 	public void testCreateJWT() {
