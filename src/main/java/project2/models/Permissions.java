@@ -2,13 +2,17 @@ package project2.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Permissions {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int permissions_id;
+	
 	@Column(nullable = false, length = 25)
 	private String permissions_description;
 	
