@@ -1,4 +1,4 @@
-package project2.repositories;
+package project2.daos;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -14,15 +14,15 @@ import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import project2.models.Credentials;
 import project2.models.UserRegistration;
 import project2.models.Users;
 import project2.services.PasswordService;
 
-@Repository
-public class UserRepository{
+@Component
+public class UserDao{
 	
 	Date date = new Date();
 	
