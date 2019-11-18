@@ -18,9 +18,7 @@ import javax.persistence.OneToMany;
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	
-	private int id;
+	private int user_id;
 	
 	@Column(nullable = false, length = 25)
 	private String firstname;
@@ -44,78 +42,22 @@ public class Users {
 	@Column(nullable=true)
 	private String avatarURL;
 	
-		public int getid() {
-		return id;
-	}
-
-	public void setid(int id) {
-		this.id = id;
-	}
-
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
+	
+		public Users(int user_id, String firstname, String lastname, String email, byte[] password, byte[] salt,
+			Timestamp createdDate, Timestamp lastLogin, String avatarURL) {
+		super();
+		this.user_id = user_id;
 		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public byte[] getPassword() {
-		return password;
-	}
-
-	public void setPassword(byte[] password) {
 		this.password = password;
-	}
-
-	public byte[] getSalt() {
-		return salt;
-	}
-
-	public void setSalt(byte[] salt) {
 		this.salt = salt;
-	}
-
-	public Timestamp getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
-	}
-
-	public Timestamp getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Timestamp lastLogin) {
 		this.lastLogin = lastLogin;
-	}
-
-	public String getAvatarURL() {
-		return avatarURL;
-	}
-
-	public void setAvatarURL(String avatarURL) {
 		this.avatarURL = avatarURL;
 	}
-	
+
+
 		@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -124,13 +66,14 @@ public class Users {
 		result = prime * result + ((createdDate == null) ? 0 : createdDate.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + id;
 		result = prime * result + ((lastLogin == null) ? 0 : lastLogin.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		result = prime * result + Arrays.hashCode(password);
 		result = prime * result + Arrays.hashCode(salt);
+		result = prime * result + user_id;
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -161,8 +104,6 @@ public class Users {
 				return false;
 		} else if (!firstname.equals(other.firstname))
 			return false;
-		if (id != other.id)
-			return false;
 		if (lastLogin == null) {
 			if (other.lastLogin != null)
 				return false;
@@ -177,29 +118,101 @@ public class Users {
 			return false;
 		if (!Arrays.equals(salt, other.salt))
 			return false;
+		if (user_id != other.user_id)
+			return false;
 		return true;
 	}
-	
-		@Override
-	public String toString() {
-		return "Users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + Arrays.toString(password) + ", salt=" + Arrays.toString(salt) + ", createdDate="
-				+ createdDate + ", lastLogin=" + lastLogin + ", avatarURL=" + avatarURL + "]";
+
+
+		public int getUser_id() {
+		return user_id;
 	}
-		
-		public Users(int id, String firstname, String lastname, String email, byte[] password, byte[] salt,
-				Timestamp createdDate, Timestamp lastLogin, String avatarURL) {
-			super();
-			this.id = id;
-			this.firstname = firstname;
-			this.lastname = lastname;
-			this.email = email;
-			this.password = password;
-			this.salt = salt;
-			this.createdDate = createdDate;
-			this.lastLogin = lastLogin;
-			this.avatarURL = avatarURL;
-		}
+
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+
+	public String getLastname() {
+		return lastname;
+	}
+
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public byte[] getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(byte[] password) {
+		this.password = password;
+	}
+
+
+	public byte[] getSalt() {
+		return salt;
+	}
+
+
+	public void setSalt(byte[] salt) {
+		this.salt = salt;
+	}
+
+
+	public Timestamp getCreatedDate() {
+		return createdDate;
+	}
+
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
+
+	public Timestamp getLastLogin() {
+		return lastLogin;
+	}
+
+
+	public void setLastLogin(Timestamp lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+
+	public String getAvatarURL() {
+		return avatarURL;
+	}
+
+
+	public void setAvatarURL(String avatarURL) {
+		this.avatarURL = avatarURL;
+	}
+
 
 		public Users() {
 		super();

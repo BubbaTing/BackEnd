@@ -3,18 +3,18 @@ package project2.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
-public class User_roles {
+public class UserRoles {
 	
 	@Id
-	//@OneToMany(fetch=FetchType.LAZY)
-	//@JoinTable(name = "attendants")
-	//@JoinColumn(name = "user_role_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int user_role_id;
 		
 	@Column(nullable = false, length = 25)
@@ -53,7 +53,7 @@ public class User_roles {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User_roles other = (User_roles) obj;
+		UserRoles other = (UserRoles) obj;
 		if (user_role_description == null) {
 			if (other.user_role_description != null)
 				return false;
@@ -69,13 +69,13 @@ public class User_roles {
 		return "User_roles [user_role_id=" + user_role_id + ", user_role_description=" + user_role_description + "]";
 	}
 
-	public User_roles(int user_role_id, String user_role_description) {
+	public UserRoles(int user_role_id, String user_role_description) {
 		super();
 		this.user_role_id = user_role_id;
 		this.user_role_description = user_role_description;
 	}
 
-	public User_roles() {
+	public UserRoles() {
 		super();
 	}
 
