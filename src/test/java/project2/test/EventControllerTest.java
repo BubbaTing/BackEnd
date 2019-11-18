@@ -43,5 +43,11 @@ public class EventControllerTest {
 				.build();
 	}
 	
+	@Test
+	public void insertingNewEvent() throws Exception{
+		//create dummy object to be tested with
+		
+	}
+	
 
 }
