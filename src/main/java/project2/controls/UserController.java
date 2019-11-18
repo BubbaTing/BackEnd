@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import project2.models.UserRegistration;
+import project2.models.UserResponse;
 import project2.models.Users;
 import project2.services.UserService;
 
@@ -21,9 +22,10 @@ public class UserController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Users createUser(@RequestBody UserRegistration regreq) {
+	public UserResponse createUser(@RequestBody UserRegistration regreq) {
 		System.out.println("Attempting User Write...");
-		return userService.createUser(regreq);
+		Users user =  userService.createUser(regreq);
+		return new UserResponse(user);
 	}
 	
 	@Autowired
