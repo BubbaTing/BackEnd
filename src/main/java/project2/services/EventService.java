@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import project2.daos.EventDao;
 import project2.models.Event;
-import project2.repositories.EventRepository;
 
 @Service
 public class EventService {
-	EventRepository eventRepo = new EventRepository();
+	EventDao eventRepo = new EventDao();
 	
 	
 	@Autowired
-	public EventService(EventRepository eventRepo) {
+	public EventService(EventDao eventRepo) {
 		super();
 		this.eventRepo = eventRepo;
 	}
