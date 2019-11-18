@@ -26,6 +26,10 @@ public class JWTService {
 		secretBytes = getSecretBytes();
 	}
 	
+	/**
+	 * Returns a byte[] of the JWT_SECRET Environment Variable. Be sure to share this with each developer who is building the project.
+	 * @return
+	 */
 	private byte[] getSecretBytes() {
 		Path path = Paths.get(System.getenv("JWT_SECRET"));
 		System.out.println(path);
@@ -36,10 +40,12 @@ public class JWTService {
 			e.printStackTrace();
 			return null;
 		}
-		
-//		return Keys.hmacShaKeyFor(this.keyBytes);
 	}
 	
+	/**
+	 * Returns a SecretKey object, called by JWT creation/read methods
+	 * @return
+	 */
 	private SecretKey getSecret() {
 		return Keys.hmacShaKeyFor(secretBytes);
 	}
