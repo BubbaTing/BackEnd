@@ -11,8 +11,8 @@ import javax.crypto.SecretKey;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.InvalidClaimException;
 import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import project2.models.Users;
@@ -32,7 +32,6 @@ public class JWTService {
 	 */
 	private byte[] getSecretBytes() {
 		Path path = Paths.get(System.getenv("JWT_SECRET"));
-		System.out.println(path);
 		try {
 			return Files.readAllBytes(path);
 		} catch (IOException e) {
@@ -57,14 +56,14 @@ public class JWTService {
 	 * @param user
 	 * @return
 	 */
-	public String createJWT(Users user) {
+	public String signJWT(Users user) {
 		String jws = Jwts.builder()
 						.setIssuer("TeamVoldemort")
 						.setSubject(user.getLastname() + "," +user.getFirstname())
 						.setIssuedAt(new Date())
-						.setExpiration(new Date(System.currentTimeMillis() - 3600 * 1000))
+						.setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000))
 						.claim("userId", user.getid())
-						.signWith(key)
+						.signWith(getSecret())
 						.compact();
 		return jws;
 	}
@@ -75,15 +74,16 @@ public class JWTService {
 	 * @param jwt
 	 * @return
 	 */
-	public int readJWTUserId(String jwtString) {
+	public boolean validateJWT(String jwsString) {
 		try {
-			Jws<Claims> Claims = Jwts.parser()
-				.requireIssuer("TeamVoldemort")
-				.setSigningKey(getSecret())
-				.parseClaimsJws(jwtString);
-			return Claims.getBody().get("userId", int.class);
-		} catch (InvalidClaimException e){
-			return 0;
+			Jws<Claims> jws = Jwts.parser()        
+					.setSigningKey(getSecret())         
+					.parseClaimsJws(jwsString); 
+			
+			return true;
+		} catch (JwtException ex) {     // (4)
+			System.out.println("JWT Authentication failure...");
+			return false;
 		}
 	}
 }
