@@ -1,6 +1,7 @@
 package project2.servicetests;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,11 @@ public class JWTServiceTests {
 	@Test 
 	public void testValidateJWT() {
 		String jwt = jwtserv.signJWT(testUser);
-		assertTrue("The readJWTUserId() method should return true for valid JWT", jwtserv.validateJWT(jwt));
+		assertTrue("The validateJWT() method should return true for valid JWT", jwtserv.validateJWT(jwt));
+	}
+	
+	@Test
+	public void testExpiredJWT() {
+		assertFalse("The validateJWT() method should return false for expired JWT", jwtserv.validateJWT(testJWS));
 	}
 }
