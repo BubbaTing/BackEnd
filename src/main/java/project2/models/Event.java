@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+
 
 
 
@@ -20,12 +20,7 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int id;
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "join_event" ,
-	joinColumns= {@JoinColumn(name = "event_id")},
-	inverseJoinColumns= {@JoinColumn(name = "user_id")})
-	private List<Users> eventId;
+
 
 	@Column(nullable=false, length = 50)
 	private String title;
@@ -57,25 +52,12 @@ public class Event {
 	@Column(nullable=false)
 	private int visibility;
 	
-
-
-	
-	
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public List<Users> getEventId() {
-		return eventId;
-	}
-
-	public void setEventId(List<Users> eventId) {
-		this.eventId = eventId;
 	}
 
 	public String getTitle() {
@@ -159,33 +141,6 @@ public class Event {
 	}
 
 	
-	
-	
-	public Event(int id, List<Users> eventId, String title, int type, Timestamp created, Timestamp startTime,
-			Timestamp endTime, String description, String location, String address, String imgAddr, int visibility) {
-		super();
-		this.id = id;
-		this.eventId = eventId;
-		this.title = title;
-		this.type = type;
-		this.created = created;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.description = description;
-		this.location = location;
-		this.address = address;
-		this.imgAddr = imgAddr;
-		this.visibility = visibility;
-	}
-
-	@Override
-	public String toString() {
-		return "Event [id=" + id + ", eventId=" + eventId + ", title=" + title + ", type=" + type + ", created="
-				+ created + ", startTime=" + startTime + ", endTime=" + endTime + ", description=" + description
-				+ ", location=" + location + ", address=" + address + ", imgAddr=" + imgAddr + ", visibility="
-				+ visibility + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -194,7 +149,6 @@ public class Event {
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((endTime == null) ? 0 : endTime.hashCode());
-		result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((imgAddr == null) ? 0 : imgAddr.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
@@ -234,11 +188,6 @@ public class Event {
 				return false;
 		} else if (!endTime.equals(other.endTime))
 			return false;
-		if (eventId == null) {
-			if (other.eventId != null)
-				return false;
-		} else if (!eventId.equals(other.eventId))
-			return false;
 		if (id != other.id)
 			return false;
 		if (imgAddr == null) {
@@ -266,6 +215,31 @@ public class Event {
 		if (visibility != other.visibility)
 			return false;
 		return true;
+	}
+
+	
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", title=" + title + ", type=" + type + ", created=" + created + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", description=" + description + ", location=" + location
+				+ ", address=" + address + ", imgAddr=" + imgAddr + ", visibility=" + visibility + "]";
+	}
+
+	
+	public Event(int id, String title, int type, Timestamp created, Timestamp startTime, Timestamp endTime,
+			String description, String location, String address, String imgAddr, int visibility) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.type = type;
+		this.created = created;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.description = description;
+		this.location = location;
+		this.address = address;
+		this.imgAddr = imgAddr;
+		this.visibility = visibility;
 	}
 
 	public Event() {

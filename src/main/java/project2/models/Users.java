@@ -12,20 +12,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+	
 	private int id;
-	
-	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "join_event" ,
-	joinColumns= {@JoinColumn(name = "user_id")},
-	inverseJoinColumns= {@JoinColumn(name = "event_id")})
-	
-	private List<Event> userId;
 	
 	@Column(nullable = false, length = 25)
 	private String firstname;
@@ -48,30 +43,13 @@ public class Users {
 	private Timestamp lastLogin;
 	@Column(nullable=true)
 	private String avatarURL;
-
-			
-	public int getId() {
+	
+		public int getid() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setid(int id) {
 		this.id = id;
-	}
-
-	public String getAvatarURL() {
-		return avatarURL;
-	}
-
-	public void setAvatarURL(String avatarURL) {
-		this.avatarURL = avatarURL;
-	}
-	
-	public List<Event> getUserId() {
-		return userId;
-	}
-
-	public void setUserId(List<Event> userId) {
-		this.userId = userId;
 	}
 
 	public String getFirstname() {
@@ -130,32 +108,15 @@ public class Users {
 		this.lastLogin = lastLogin;
 	}
 
-	
-	
-	
-	public Users(int id, List<Event> userId, String firstname, String lastname, String email, byte[] password,
-			byte[] salt, Timestamp createdDate, Timestamp lastLogin, String avatarURL) {
-		super();
-		this.id = id;
-		this.userId = userId;
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.password = password;
-		this.salt = salt;
-		this.createdDate = createdDate;
-		this.lastLogin = lastLogin;
+	public String getAvatarURL() {
+		return avatarURL;
+	}
+
+	public void setAvatarURL(String avatarURL) {
 		this.avatarURL = avatarURL;
 	}
-
-	@Override
-	public String toString() {
-		return "Users [id=" + id + ", userId=" + userId + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", email=" + email + ", password=" + Arrays.toString(password) + ", salt=" + Arrays.toString(salt)
-				+ ", createdDate=" + createdDate + ", lastLogin=" + lastLogin + ", avatarURL=" + avatarURL + "]";
-	}
-
-	@Override
+	
+		@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -168,7 +129,6 @@ public class Users {
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
 		result = prime * result + Arrays.hashCode(password);
 		result = prime * result + Arrays.hashCode(salt);
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -217,19 +177,32 @@ public class Users {
 			return false;
 		if (!Arrays.equals(salt, other.salt))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
 		return true;
 	}
+	
+		@Override
+	public String toString() {
+		return "Users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + Arrays.toString(password) + ", salt=" + Arrays.toString(salt) + ", createdDate="
+				+ createdDate + ", lastLogin=" + lastLogin + ", avatarURL=" + avatarURL + "]";
+	}
+		
+		public Users(int id, String firstname, String lastname, String email, byte[] password, byte[] salt,
+				Timestamp createdDate, Timestamp lastLogin, String avatarURL) {
+			super();
+			this.id = id;
+			this.firstname = firstname;
+			this.lastname = lastname;
+			this.email = email;
+			this.password = password;
+			this.salt = salt;
+			this.createdDate = createdDate;
+			this.lastLogin = lastLogin;
+			this.avatarURL = avatarURL;
+		}
 
-	public Users() {
+		public Users() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
-	
 }
