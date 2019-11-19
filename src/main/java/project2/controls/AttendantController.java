@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import project2.entities.Attendants;
+import project2.models.AttendantCreateRequest;
 import project2.services.AttendantService;
 
 @RestController
@@ -21,8 +22,9 @@ public class AttendantController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(path="/attend/1")
-	public Attendants saveAttendant(@RequestBody Attendants attend) {
+	public Attendants saveAttendant(@RequestBody AttendantCreateRequest attend) {
 		System.out.println("Attempting Attendant Write...");
+		System.out.println("ACR in: " + attend.toString());
 		return attendServ.saveAttendant(attend);
 	}
 	

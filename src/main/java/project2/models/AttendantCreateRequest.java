@@ -1,27 +1,10 @@
-package project2.entities;
+package project2.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Attendants {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	
-	private int attendant_id;
-	
+public class AttendantCreateRequest {
 	private int user_id;
 	private int event_id;
 	private int user_role_id;
 	private int permissions_id;
-	
-	public int getAttendant_id() {
-		return attendant_id;
-	}
-	public void setAttendant_id(int attendant_id) {
-		this.attendant_id = attendant_id;
-	}
 	public int getUser_id() {
 		return user_id;
 	}
@@ -50,7 +33,6 @@ public class Attendants {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + attendant_id;
 		result = prime * result + event_id;
 		result = prime * result + permissions_id;
 		result = prime * result + user_id;
@@ -65,9 +47,7 @@ public class Attendants {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Attendants other = (Attendants) obj;
-		if (attendant_id != other.attendant_id)
-			return false;
+		AttendantCreateRequest other = (AttendantCreateRequest) obj;
 		if (event_id != other.event_id)
 			return false;
 		if (permissions_id != other.permissions_id)
@@ -80,20 +60,18 @@ public class Attendants {
 	}
 	@Override
 	public String toString() {
-		return "Attendants [attendant_id=" + attendant_id + ", user_id=" + user_id + ", event_id=" + event_id
-				+ ", user_role_id=" + user_role_id + ", permissions_id=" + permissions_id + "]";
+		return "AttendantCreateRequest [user_id=" + user_id + ", event_id=" + event_id + ", user_role_id="
+				+ user_role_id + ", permissions_id=" + permissions_id + "]";
 	}
-	public Attendants(int attendant_id, int user_id, int event_id, int user_role_id, int permissions_id) {
+	public AttendantCreateRequest(int user_id, int event_id, int user_role_id, int permissions_id) {
 		super();
-		this.attendant_id = attendant_id;
 		this.user_id = user_id;
 		this.event_id = event_id;
 		this.user_role_id = user_role_id;
 		this.permissions_id = permissions_id;
 	}
-	public Attendants() {
+	public AttendantCreateRequest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	
