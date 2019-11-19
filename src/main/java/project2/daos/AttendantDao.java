@@ -1,9 +1,12 @@
 package project2.daos;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,31 +33,43 @@ public class AttendantDao {
 	 * @param id
 	 * @return
 	 */
-	public Attendants getAttendantById(int id) {
+	public Attendants getAttendantsById(int id) {
 		Session sess = em.unwrap(Session.class);
 		Attendants attend = sess.get(Attendants.class, id);
 		return attend;
 	}
 
+	/**
+	 * Returns RoleId object where user_role_id = input
+	 * @param userroleid
+	 * @return
+	 */
 	public UserRoles getRoleById(int userroleid) {
 		Session sess = em.unwrap(Session.class);
 		return sess.get(UserRoles.class, userroleid);
 	}
 
+	/**
+	 * Returns Permissions object where permissions_id = input
+	 * @param permissions
+	 * @return
+	 */
 	public Permissions getPermissionsById(int permissions) {
 		Session sess = em.unwrap(Session.class);
 		return sess.get(Permissions.class, permissions);
 	}
 
-//	public int getMaxId() {
-//		Session sess = em.unwrap(Session.class);
-//		try {
-//			int maxId = (int) sess.createQuery("SELECT max(attendant_id) from Attendants")
-//					.getSingleResult();
-//			return maxId;
-//		} catch (NullPointerException e) {
-//			e.printStackTrace();
-//			return 1;
-//		}
-//	}
+	/**
+	 * Returns ArrayList<Attendants> where user_id = input
+	 * @param userid
+	 * @return
+	 */
+	public List<Attendants> getAttendsByUserId(int userid) {
+		String hql = ("FROM Attendants WHERE user_id=:userid");
+		List<Attendants> attend = em.createQuery(hql, Attendants.class)
+						.setParameter("userid", userid)
+						.getResultList();
+		return attend;
+	}
+
 }

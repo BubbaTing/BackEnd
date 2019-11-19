@@ -1,5 +1,8 @@
 package project2.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,8 +47,8 @@ public class AttendantService {
 	 * @return
 	 */
 	@Transactional
-	public Attendants getAttendById(int id) {
-		return attendDao.getAttendantById(id);
+	public Attendants getAttendsById(int id) {
+		return attendDao.getAttendantsById(id);
 	}
 	
 	/**
@@ -65,5 +68,9 @@ public class AttendantService {
 		newattend.setUser_role_id(attend.getUser_role_id());
 		
 		return newattend;
+	}
+
+	public List<Attendants> getAttendsByUserId(int userid) {
+		return attendDao.getAttendsByUserId(userid);
 	}
 }
