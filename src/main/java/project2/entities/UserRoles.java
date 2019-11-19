@@ -1,13 +1,12 @@
 package project2.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -19,6 +18,9 @@ public class UserRoles {
 		
 	@Column(nullable = false, length = 25)
 	private String user_role_description;
+	
+    @OneToMany(mappedBy="user_role_id")
+    private Set<Attendants> attendants;
 
 	public int getUser_role_id() {
 		return user_role_id;
