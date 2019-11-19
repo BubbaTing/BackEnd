@@ -1,6 +1,7 @@
 package project2.daos;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import project2.models.Event;
 
@@ -55,6 +55,28 @@ public class EventDao {
 		new_party.setImgAddr(party.getImgAddr());
 		new_party.setVisibility(party.getVisibility());
 		return new_party;
+	}
+
+	/** 
+	 * Returns an event given an id.
+	 * @param id
+	 * @return
+	 */
+	public Event getEventById(int id) {
+		Session sess = em.unwrap(Session.class);
+		return sess.load(Event.class, id);
+	}
+
+	//TODO - relies on Attendants table
+	/**
+	 * Returns a list of Events given a userid
+	 * @param id
+	 * @return
+	 */
+	public ArrayList<Event> getUsersEvents(int id) {
+		Session sess = em.unwrap(Session.class);
+		
+		return null;
 	}
 
 }
