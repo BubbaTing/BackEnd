@@ -2,17 +2,16 @@ package project2.entities;
 
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+
 
 @Entity
 public class Users {
@@ -42,8 +41,11 @@ public class Users {
 	@Column(nullable=true)
 	private String avatarURL;
 	
+    @OneToMany(mappedBy="user_id")
+    private Set<Attendants> attendants;
 	
-		public Users(int user_id, String firstname, String lastname, String email, byte[] password, byte[] salt,
+	
+	public Users(int user_id, String firstname, String lastname, String email, byte[] password, byte[] salt,
 			Timestamp createdDate, Timestamp lastLogin, String avatarURL) {
 		super();
 		this.user_id = user_id;
@@ -217,5 +219,15 @@ public class Users {
 	public Users() {
 		super();
 	}
+
+
+	@Override
+	public String toString() {
+		return "Users [user_id=" + user_id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", password=" + Arrays.toString(password) + ", salt=" + Arrays.toString(salt) + ", createdDate="
+				+ createdDate + ", lastLogin=" + lastLogin + ", avatarURL=" + avatarURL + "]";
+	}
+	
+	
 	
 }

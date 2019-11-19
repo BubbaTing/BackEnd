@@ -97,4 +97,9 @@ public class UserDao{
 			return null;
 		}
 	}
+	
+	public Users getUserById(int id ){
+		Session sess = em.unwrap(Session.class);
+		return sess.get(Users.class, id);
+	}
 }

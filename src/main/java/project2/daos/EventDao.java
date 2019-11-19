@@ -64,7 +64,7 @@ public class EventDao {
 	 */
 	public Event getEventById(int id) {
 		Session sess = em.unwrap(Session.class);
-		return sess.load(Event.class, id);
+		return sess.get(Event.class, id);
 	}
 
 	//TODO - relies on Attendants table

@@ -2,6 +2,7 @@ package project2.entities;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 
 
@@ -18,7 +20,6 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int event_id;
-
 
 	@Column(nullable=false, length = 50)
 	private String title;
@@ -50,6 +51,9 @@ public class Event {
 	@Column(nullable=false)
 	private int visibility;
 	
+    @OneToMany(mappedBy="event_id")
+    private Set<Attendants> attendants;
+	
 	
 	public int getEvent_id() {
 		return event_id;
@@ -59,128 +63,86 @@ public class Event {
 		this.event_id = event_id;
 	}
 
-
-
 	public String getTitle() {
 		return title;
 	}
 
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
-
+	
 	public int getType() {
 		return type;
 	}
-
-
-
+	
 	public void setType(int type) {
 		this.type = type;
 	}
-
-
-
+	
 	public Timestamp getCreated() {
 		return created;
 	}
 
-
-
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
-
-
-
+	
 	public Timestamp getStartTime() {
 		return startTime;
 	}
-
-
 
 	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 
-
-
 	public Timestamp getEndTime() {
 		return endTime;
 	}
-
-
-
+	
 	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
-
-
 
 	public String getDescription() {
 		return description;
 	}
 
-
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 
 	public String getLocation() {
 		return location;
 	}
 
-
-
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-
 
 	public String getAddress() {
 		return address;
 	}
 
-
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
 
 	public String getImgAddr() {
 		return imgAddr;
 	}
 
-
-
 	public void setImgAddr(String imgAddr) {
 		this.imgAddr = imgAddr;
 	}
-
-
 
 	public int getVisibility() {
 		return visibility;
 	}
 
-
-
 	public void setVisibility(int visibility) {
 		this.visibility = visibility;
 	}
-
 	
-
 	public Event(int event_id, String title, int type, Timestamp created, Timestamp startTime, Timestamp endTime,
 			String description, String location, String address, String imgAddr, int visibility) {
 		super();

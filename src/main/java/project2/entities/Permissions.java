@@ -1,10 +1,13 @@
 package project2.entities;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Permissions {
@@ -15,6 +18,9 @@ public class Permissions {
 	
 	@Column(nullable = false, length = 25)
 	private String permissions_description;
+	
+    @OneToMany(mappedBy="permissions_id")
+    private Set<Attendants> attendants;
 	
 	public int getPermissions_id() {
 		return permissions_id;

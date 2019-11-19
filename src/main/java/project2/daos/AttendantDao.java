@@ -14,17 +14,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
+import project2.entities.Permissions;
+import project2.entities.UserRoles;
 
 @Component
 public class AttendantDao {
-	
+
 	@PersistenceContext
 	@Autowired (required = true)
 	EntityManager em;
-	
+
 	public Attendants saveAttendant(Attendants attend) {
 		Session sess = em.unwrap(Session.class);
-		sess.persist(attend);
+		sess.save(attend);
 		return attend;
 	}
 
@@ -34,32 +36,43 @@ public class AttendantDao {
 	 * @param id
 	 * @return
 	 */
-	public Attendants getAttendantById(int id) {
+	public Attendants getAttendantsById(int id) {
 		Session sess = em.unwrap(Session.class);
 		Attendants attend = sess.get(Attendants.class, id);
 		return attend;
 	}
 
 	/**
-	 * By Chong
-	 * 
-	 * @param event_id
-	 * @param currentUserId
+	 * Returns RoleId object where user_role_id = input
+	 * @param userroleid
 	 * @return
 	 */
-	
-	public int getPermissionValue(int currentEventId, int currentUserId) {
-		int value;
-		Session sessPermission = em.unwrap(Session.class);
-		
-		String hql = "Select A.user_role_id from Attendant A"
-				+ " where A.event_id = :currentEventId and"
-				+ " A.user_id = :currentUserId";
-				
-		Query query = sessPermission.createQuery(hql);
-		
-		value = query.
-		
-		return value;
+	public UserRoles getRoleById(int userroleid) {
+		Session sess = em.unwrap(Session.class);
+		return sess.get(UserRoles.class, userroleid);
 	}
+
+	/**
+	 * Returns Permissions object where permissions_id = input
+	 * @param permissions
+	 * @return
+	 */
+	public Permissions getPermissionsById(int permissions) {
+		Session sess = em.unwrap(Session.class);
+		return sess.get(Permissions.class, permissions);
+	}
+
+	/**
+	 * Returns ArrayList<Attendants> where user_id = input
+	 * @param userid
+	 * @return
+	 */
+	public List<Attendants> getAttendsByUserId(int userid) {
+		String hql = ("FROM Attendants WHERE user_id=:userid");
+		List<Attendants> attend = em.createQuery(hql, Attendants.class)
+						.setParameter("userid", userid)
+						.getResultList();
+		return attend;
+	}
+
 }

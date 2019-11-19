@@ -28,4 +28,9 @@ public class UserService {
 	public Users getUserByCred(Credentials cred) {
 		return userDao.getUserByCred(cred);
 	}
+	
+	@Transactional
+	public Users getUserById(int id) {
+		return userDao.getUserById(id);
+	}
 }
