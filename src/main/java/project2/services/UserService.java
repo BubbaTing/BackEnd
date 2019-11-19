@@ -5,9 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import project2.daos.UserDao;
+import project2.entities.Users;
 import project2.models.Credentials;
 import project2.models.UserRegistration;
-import project2.models.Users;
 
 @Service
 public class UserService {

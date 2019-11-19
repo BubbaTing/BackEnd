@@ -1,4 +1,4 @@
-package project2.models;
+package project2.entities;
 
 import java.sql.Timestamp;
 import java.util.List;

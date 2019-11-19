@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import project2.models.Users;
+import project2.entities.Users;
 import project2.services.JWTService;
 
 @RunWith(SpringRunner.class)

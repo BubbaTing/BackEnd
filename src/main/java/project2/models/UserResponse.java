@@ -1,5 +1,7 @@
 package project2.models;
 
+import project2.entities.Users;
+
 public class UserResponse {
 	private int userid;
 	private String firstname;
@@ -79,7 +81,7 @@ public class UserResponse {
 		super();
 	}
 	public UserResponse(Users user) {
-		this.userid = user.getid();
+		this.userid = user.getUser_id();
 		this.firstname = user.getFirstname();
 		this.email = user.getEmail();
 		this.avatar = user.getAvatarURL();

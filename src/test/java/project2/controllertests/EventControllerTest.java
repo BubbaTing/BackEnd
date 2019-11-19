@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import project2.controls.EventController;
-import project2.models.Event;
+import project2.entities.Event;
 import project2.services.EventService;
 
 @RunWith(SpringRunner.class)

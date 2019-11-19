@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import project2.daos.AttendantDao;
-import project2.models.Attendants;
+import project2.entities.Attendants;
 
 @Service
 public class AttendantService {

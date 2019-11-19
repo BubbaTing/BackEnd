@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import project2.daos.AttendantDao;
 import project2.daos.EventDao;
-import project2.models.Event;
+import project2.entities.Event;
 
 @Service
 public class EventService {
