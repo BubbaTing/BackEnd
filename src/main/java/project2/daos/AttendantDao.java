@@ -22,6 +22,12 @@ public class AttendantDao {
 		return attend;
 	}
 
+	//TODO
+	/**
+	 * Returns an array of attendants objects given a userid
+	 * @param id
+	 * @return
+	 */
 	public Attendants getAttendantById(int id) {
 		Session sess = em.unwrap(Session.class);
 		Attendants attend = sess.get(Attendants.class, id);
