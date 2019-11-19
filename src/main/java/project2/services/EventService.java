@@ -45,4 +45,10 @@ public class EventService {
 		return eventRepo.getUsersEvents(id);
 	}
 
+
+	public Event updateEvent(Event party) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

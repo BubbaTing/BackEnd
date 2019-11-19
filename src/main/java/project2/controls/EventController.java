@@ -12,7 +12,7 @@ import project2.models.Event;
 import project2.services.EventService;
 
 @RestController
-@RequestMapping("events")
+@RequestMapping("events/*")
 public class EventController {
 
 	EventService eventService;
@@ -23,11 +23,19 @@ public class EventController {
 		this.eventService = partyService;
 	}
 
-	@PostMapping
+	//1 ==> Create Event
+	@PostMapping("events/1")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Event createEvent(@RequestBody Event party) {
 		System.out.println("Event Created Successfully");
 		return eventService.createEvent(party);
+	}
+	
+	//1 ==> Create Event
+	@PostMapping("events/2")
+	public Event updateEvent(@RequestBody Event party) {
+		System.out.println("Event Created Successfully");
+		return eventService.updateEvent(party);
 	}
 
 }
