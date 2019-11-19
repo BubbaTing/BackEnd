@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import project2.entities.Users;
 import project2.models.UserRegistration;
 import project2.models.UserResponse;
-import project2.models.Users;
 import project2.services.UserService;
 
 

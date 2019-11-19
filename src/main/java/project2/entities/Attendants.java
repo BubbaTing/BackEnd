@@ -1,4 +1,4 @@
-package project2.models;
+package project2.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,9 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import project2.models.Event;
-import project2.models.Users;
 
 @Entity
 public class Attendants {

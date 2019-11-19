@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import project2.models.Event;
+import project2.entities.Event;
 import project2.services.EventService;
 
 @RestController
-@RequestMapping("events")
+@RequestMapping("events/*")
 public class EventController {
 
 	EventService eventService;
@@ -29,5 +29,7 @@ public class EventController {
 		System.out.println("Event Created Successfully");
 		return eventService.createEvent(party);
 	}
+	
+	
 
 }
