@@ -1,5 +1,7 @@
 package project2.controls;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +33,9 @@ public class AttendantController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/attend/2")
-	public Attendants getAttendantById(@RequestBody int id) {
+	public List<Attendants> getAttendantsById(@RequestBody int id) {
 		System.out.println("Attempting Attendant Write...");
-		return attendServ.getAttendById(id);
+		return attendServ.getAttendsByUserId(id);
 	}
 	
 	@Autowired
