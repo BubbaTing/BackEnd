@@ -15,7 +15,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import project2.models.Users;
+import project2.entities.Users;
 
 @Service
 public class JWTService {

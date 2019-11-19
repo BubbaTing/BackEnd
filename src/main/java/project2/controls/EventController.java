@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import project2.models.Event;
+import project2.entities.Event;
 import project2.services.EventService;
 
 @RestController
@@ -16,7 +16,7 @@ import project2.services.EventService;
 public class EventController {
 
 	EventService eventService;
-	
+
 	@Autowired
 	public EventController(EventService partyService) {
 		super();
@@ -31,7 +31,7 @@ public class EventController {
 		return eventService.createEvent(party);
 	}
 	
-	//1 ==> Create Event
+	//2 ==> Update Event
 	@PostMapping("events/2")
 	public Event updateEvent(@RequestBody Event party) {
 		System.out.println("Event Created Successfully");

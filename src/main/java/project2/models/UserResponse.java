@@ -1,5 +1,7 @@
 package project2.models;
 
+import project2.entities.Users;
+
 public class UserResponse {
 	private int userid;
 	private String firstname;

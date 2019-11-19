@@ -11,7 +11,7 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import project2.models.Event;
+import project2.entities.Event;
 
 @Component
 public class EventDao {
