@@ -34,7 +34,7 @@ public class AttendantController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(path="/attend/2")
 	public List<Attendants> getAttendantsByUserId(@RequestBody int id) {
-		System.out.println("Attempting Attendant Write...");
+		System.out.println("Attempting Attendant Read by User...");
 		return attendServ.getAttendsByUserId(id);
 	}
 	
