@@ -34,6 +34,7 @@ public class EventController {
 	
 	//2 ==> Update Event
 	@PostMapping("events/2")
+	@ResponseStatus(HttpStatus.OK)
 	public int updateMyEvent(@RequestBody Event party) {
 		System.out.println("Event Updated in Progress");
 		return eventService.updateEvent(party);
