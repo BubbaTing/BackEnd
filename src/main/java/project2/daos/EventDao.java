@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -94,11 +95,43 @@ public class EventDao {
 		System.out.println("This updated query is" + myEvent.toString());
 	}
 
-	public Event updateEventDAO(Event party) {
+	public int updateEventDAO(Event party) {
 		Session eventsess = em.unwrap(Session.class);
+		Transaction trans = eventsess.beginTransaction();
 		
-		eventsess.update(party);
-		return null;
+		Event event = eventsess.get(Event.class, party.getEvent_id());
+		System.out.println("Before updating...");
+		event.setDescription(party.getDescription());
+		eventsess.update(event);//saveorUpdate(party);
+		System.out.println("Updated");
+		trans.commit();
+//		String hql = ("update Event "
+//				+ "set address=:p.address"
+//				+ "set created=:p.created"
+//				+ "set description=:p.description"
+//				+ "set end_time=:p.end_time"
+//				+ "set img_addr=:p.img_address"
+//				+ "set location=:p.location"
+//				+ "set start_time=:p.start_time"
+//				+ "set type=:p.type"
+//				+ "set visbility=:p.visbility"
+//				+ "set title=:p.title"
+//				+ "where event_id=:p.eventid");
+//		Query myEvent = (Query) em.createQuery(hql, Event.class)
+//				.setParameter("p.address", party.getAddress())
+//				.setParameter("p.created", party.getCreated())
+//				.setParameter("p.description", party.getDescription())
+//				.setParameter("p.end_time", party.getEndTime())
+//				.setParameter("p.img_address", party.getImgAddr())
+//				.setParameter("p.location", party.getLocation())
+//				.setParameter("p.start_time", party.getStartTime())
+//				.setParameter("p.type", party.getType())
+//				.setParameter("p.visbility", party.getVisibility())
+//				.setParameter("p.title", party.getTitle())
+//				.setParameter("p.eventid", party.getEvent_id())
+//				.getResultList();
+//		int result = myEvent.executeUpdate();
+		return 1; //result;
 	}
 
 

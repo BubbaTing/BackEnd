@@ -70,8 +70,8 @@ public class EventService {
 		
 		//Check the permission of the attendant table
 		if(id == 1) {
-			eventRepo.updateThisEvent(party.getEvent_id());
-			return 1;
+			return eventRepo.updateEventDAO(party);
+			//return 1;
 		}
 		return 0;
 	}
