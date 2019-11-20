@@ -85,21 +85,17 @@ public class AttendantDao {
 	 */
 	public int getRoleValue(int currentEventId, int currentUserId){
 		int value;
-		Session sessPermission = em.unwrap(Session.class);
-		
+			
 		String hql = "SELECT user_role_id FROM Attendants"
 				+ " WHERE event_id=:currentEventId and"
 				+ " user_id=:currentUserId";
 				
-		List<Event> query = sessPermission.createQuery(hql)
+		value = (int) em.createQuery(hql)
 				.setParameter("currentEventId", currentEventId)
-				.setParameter("currentUserId", currentUserId)
-				.getResultList();
+				.setParameter("currentUserId", currentUserId).getSingleResult();
 		
-		System.out.println("This Role Value is" + query.toString());
-		
-		value = 1; //(int) query.uniqueResult();
-		 
+		System.out.println("This Role Value is" + value);
+
 		return value;
 	}
 	
