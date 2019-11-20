@@ -16,20 +16,26 @@ import project2.services.EventService;
 public class EventController {
 
 	EventService eventService;
-	
+
 	@Autowired
 	public EventController(EventService partyService) {
 		super();
 		this.eventService = partyService;
 	}
 
-	@PostMapping
+	//1 ==> Create Event
+	@PostMapping("events/1")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Event createEvent(@RequestBody Event party) {
-		System.out.println("Event Created Successfully");
+		System.out.println("Event Created in Progress");
 		return eventService.createEvent(party);
 	}
 	
-	
+	//2 ==> Update Event
+	@PostMapping("events/2")
+	public Event updateEvent(@RequestBody Event party) {
+		System.out.println("Event Updated in Progress");
+		return eventService.updateEvent(party);
+	}
 
 }

@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +20,11 @@ import project2.entities.UserRoles;
 
 @Component
 public class AttendantDao {
-	
+
 	@PersistenceContext
 	@Autowired (required = true)
 	EntityManager em;
-	
+
 	public Attendants saveAttendant(Attendants attend) {
 		Session sess = em.unwrap(Session.class);
 		sess.save(attend);
@@ -70,6 +74,25 @@ public class AttendantDao {
 						.setParameter("userid", userid)
 						.getResultList();
 		return attend;
+	}
+		
+	/**
+	 * By Chong 
+	 * @param currentEventId
+	 * @param currentUserId
+	 * @return
+	 */
+	public int getRoleValue(int currentEventId, int currentUserId){
+		int value;
+		Session sessPermission = em.unwrap(Session.class);
+		
+		String hql = "Select A.user_role_id from Attendant A"
+				+ " where A.event_id = :currentEventId and"
+				+ " A.user_id = :currentUserId";
+				
+		Query query = sessPermission.createQuery(hql);
+		
+		return value;
 	}
 
 }

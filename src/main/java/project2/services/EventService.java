@@ -45,4 +45,33 @@ public class EventService {
 		return eventRepo.getUsersEvents(id);
 	}
 
+	
+	/**
+	 * Takes in Event object from the controllers and
+	 * send it to the event DAOs (eventRepo)
+	 * @param party: new event updates
+	 * 
+	 * @return What are we returning if
+	 * 	the update is a success?
+	 * 
+	 * 	the update is a failure?
+	 */
+	public Event updateEvent(Event party) {
+		/* check the attendants table;
+		 *	select * from the attendant table where event id and user id == 1 
+		 *	if(permission id == 1) allow edit
+		 *	else return null
+		 */
+		int id; // user id needed
+		
+		//Call the attendant table
+		//id = getPermissionValue(party.getEvent_id(), currentUserId);
+		
+		//Check the permission of the attendant table
+		if(id == 1) {
+			return eventRepo.updateEventDAO(party);
+		}
+		return null;
+	}
+
 }
