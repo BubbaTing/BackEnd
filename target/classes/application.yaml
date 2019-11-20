@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8001
   
 spring:
   application:
@@ -9,5 +9,6 @@ spring:
     password: ${AWS_PASS}
     url: jdbc:postgresql://revature2.chvwilb5xwei.us-east-1.rds.amazonaws.com:5432/postgres
   jpa:
-    hibernate:      ddl-auto: update
+    hibernate:
+      ddl-auto: update
  
