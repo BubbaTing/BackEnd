@@ -79,6 +79,9 @@ public class AttendantDao {
 		
 	/**
 	 * By Chong 
+	 * Method takes in two integer value that checks
+	 * if the user is allow to edit that event. This is to validiate
+	 * if the user can edit or delete the event
 	 * @param currentEventId
 	 * @param currentUserId
 	 * @return

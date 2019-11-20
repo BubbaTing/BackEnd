@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import project2.daos.AttendantDao;
 import project2.daos.EventDao;
 import project2.entities.Event;
-import project2.models.EventAndUserId;
 
 @Service
 public class EventService {
@@ -66,24 +65,14 @@ public class EventService {
 		int id; // user id needed
 		int currentUserId = 1;
 		//Call the attendant table
-		id = attendDao.getRoleValue(party.getEvent_id(), 1);
+		id = attendDao.getRoleValue(party.getEvent_id(), currentUserId);
 		
 		//Check the permission of the attendant table
 		if(id == 1) {
-			return eventRepo.updateEventDAO(party);
-			//return 1;
+			eventRepo.updateEventDAO(party);
+			return 1; //return 1 on successful update
 		}
 		return 0;
 	}
-	
-//	public Event updateEvent(Event party) {
-//		int userRole =  attendDao.getRoleValue(party.getEventId(), party.getUserId());
-//		if(userRole == 1) {
-//			return eventRepo.updateThisEvent(party);
-//			
-//		}
-//		return null;
-//		 
-//	}
 
 }
