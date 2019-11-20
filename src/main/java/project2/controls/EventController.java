@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import project2.entities.Event;
+import project2.models.EventAndUserId;
 import project2.services.EventService;
 
 @RestController
@@ -33,9 +34,11 @@ public class EventController {
 	
 	//2 ==> Update Event
 	@PostMapping("events/2")
-	public Event updateEvent(@RequestBody Event party) {
+	public int updateMyEvent(@RequestBody Event party) {
 		System.out.println("Event Updated in Progress");
 		return eventService.updateEvent(party);
 	}
+	
+	
 
 }

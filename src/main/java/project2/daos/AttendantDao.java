@@ -7,10 +7,11 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import project2.entities.Event;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.*;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -86,13 +87,22 @@ public class AttendantDao {
 		int value;
 		Session sessPermission = em.unwrap(Session.class);
 		
-		String hql = "Select A.user_role_id from Attendant A"
-				+ " where A.event_id = :currentEventId and"
-				+ " A.user_id = :currentUserId";
+		String hql = "SELECT user_role_id FROM Attendants"
+				+ " WHERE event_id=:currentEventId and"
+				+ " user_id=:currentUserId";
 				
-		Query query = sessPermission.createQuery(hql);
+		List<Event> query = sessPermission.createQuery(hql)
+				.setParameter("currentEventId", currentEventId)
+				.setParameter("currentUserId", currentUserId)
+				.getResultList();
 		
+		System.out.println("This Role Value is" + query.toString());
+		
+		value = 1; //(int) query.uniqueResult();
+		 
 		return value;
 	}
+	
+
 
 }
