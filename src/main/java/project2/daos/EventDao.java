@@ -3,14 +3,16 @@ package project2.daos;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project2.entities.Attendants;
 import project2.entities.Event;
 
 @Component
@@ -78,5 +80,27 @@ public class EventDao {
 		
 		return null;
 	}
+	
+	
+	
+	public void updateThisEvent(int myEventId) {
+		String hql = ("FROM Event WHERE Event_id=:myEventId");
+		
+		List<Event> myEvent = em.createQuery(hql, Event.class)
+				.setParameter("myEventId", myEventId)
+				.getResultList();
+		//return myEvent;
+		
+		System.out.println("This updated query is" + myEvent.toString());
+	}
+
+	public Event updateEventDAO(Event party) {
+		Session eventsess = em.unwrap(Session.class);
+		
+		eventsess.update(party);
+		return null;
+	}
+
+
 
 }
