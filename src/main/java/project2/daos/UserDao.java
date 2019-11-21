@@ -17,6 +17,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project2.entities.Attendants;
 import project2.entities.Users;
 import project2.models.Credentials;
 import project2.models.UserRegistration;

@@ -5,20 +5,13 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import project2.entities.Event;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.*;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
-
 import project2.entities.UserRoles;
 
 @Component
@@ -34,7 +27,6 @@ public class AttendantDao {
 		return attend;
 	}
 
-	//TODO
 	/**
 	 * Returns an array of attendants objects given a userid
 	 * @param id
@@ -74,6 +66,19 @@ public class AttendantDao {
 						.getResultList();
 		return attend;
 	}
+	
+	/**
+	 * Returns ArrayList<Attendants> where event_id = input
+	 * @param userid
+	 * @return
+	 */
+	public List<Attendants> getAttendantsByEventId(int eventid) {
+		String hql = ("FROM Attendants WHERE event_id=:eventid");
+		List<Attendants> attend = em.createQuery(hql, Attendants.class)
+						.setParameter("eventid", eventid)
+						.getResultList();
+		return attend;
+	}
 		
 	/**
 	 * By Chong 
@@ -100,6 +105,11 @@ public class AttendantDao {
 		return value;
 	}
 	
+	/**
+	 * Removes Attendants given the EventId. Should be called before you delete the event 
+	 * attendants is refrencing.
+	 * @param EventId
+	 */
 	public void removeAttendants(int EventId) {
 		Session eventsess = em.unwrap(Session.class);
 		
@@ -116,8 +126,7 @@ public class AttendantDao {
 			 eventsess.delete(event);
 		 }
 		 trans.commit();
-		 System.out.println("this attendant deleted " + EventId);
-		 
+		 System.out.println("this attendant deleted " + EventId);	 
 	}
 	
 	public List<Attendants> returnUserPerEventId(int eventId) {

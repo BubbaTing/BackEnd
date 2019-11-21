@@ -19,6 +19,7 @@ public class UserService {
 	
 	AttendantDao attendDao;
 	UserDao userDao = new UserDao();
+	AttendantDao attendDao = new AttendantDao();
 	
 	@Autowired
 	public UserService(UserDao userDao, AttendantDao attendDao) {

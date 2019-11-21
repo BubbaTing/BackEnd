@@ -104,7 +104,7 @@ public class EventDao {
 		trans.commit();
 	}
 	
-	public void deleteMyEventTest(int myEventId) {
+	public void deleteMyEvent(int myEventId) {
 		 Session eventsess = em.unwrap(Session.class);
 		 //Start Transaction
 		 Transaction trans = eventsess.beginTransaction();
@@ -113,7 +113,7 @@ public class EventDao {
 		 eventsess.delete(event);
 		 trans.commit();
 		 System.out.println("this event deleted " + myEventId);
-		}
+	}
 
 
 

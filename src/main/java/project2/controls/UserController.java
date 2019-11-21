@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +32,14 @@ public class UserController {
         System.out.println("Attempting User Write...");
         Users user = userService.createUser(regreq);
         return new UserResponse(user);
+    }
+	
+	@GetMapping("users/2")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Users> getUsersByEventId(@RequestBody int eventid) {
+        System.out.println("Attempting []User Read...");
+        List<Users> users = userService.getAttendantsByEventId(eventid);
+        return users;
     }
 
     @Autowired
