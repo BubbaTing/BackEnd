@@ -31,8 +31,8 @@ public class JWTService {
 	 * @return
 	 */
 	private byte[] getSecretBytes() {
-		Path path = Paths.get(System.getenv("JWT_SECRET"));
 		try {
+			Path path = Paths.get(System.getenv("JWT_SECRET"));
 			return Files.readAllBytes(path);
 		} catch (IOException e) {
 			System.out.println("JWT Secret Read Error!");
