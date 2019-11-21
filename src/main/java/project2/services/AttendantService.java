@@ -77,7 +77,5 @@ public class AttendantService {
 		return attendDao.getAttendsByUserId(userid);
 	}
 
-	public Attendants updateAttendant(Attendants attend) {
-		return attendDao.updateAttendants(attend);
-	}
+
 }

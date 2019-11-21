@@ -34,13 +34,7 @@ public class UserController {
         return new UserResponse(user);
     }
 	
-	@GetMapping("users/2")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<Users> getUsersByEventId(@RequestBody int eventid) {
-        System.out.println("Attempting []User Read...");
-        List<Users> users = userService.getAttendantsByEventId(eventid);
-        return users;
-    }
+	
 
     @Autowired
     public UserController(UserService userServ) {

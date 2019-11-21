@@ -17,7 +17,7 @@ import project2.models.UserRegistration;
 @Service
 public class UserService {
 	
-	AttendantDao attendDao;
+	
 	UserDao userDao = new UserDao();
 	AttendantDao attendDao = new AttendantDao();
 	
