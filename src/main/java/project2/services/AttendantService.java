@@ -63,7 +63,7 @@ public class AttendantService {
 		
 		newattend.setUser_id(attend.getUser_id());
 		newattend.setEvent_id(attend.getEvent_id());
-		newattend.setPermissions_id(attend.getPermissions_id());
+	
 		newattend.setUser_role_id(attend.getUser_role_id());
 		
 		return newattend;

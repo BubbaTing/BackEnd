@@ -1,5 +1,6 @@
 package project2.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
-import project2.entities.Permissions;
+
 import project2.entities.UserRoles;
 
 @Component
@@ -60,11 +61,7 @@ public class AttendantDao {
 	 * @param permissions
 	 * @return
 	 */
-	public Permissions getPermissionsById(int permissions) {
-		Session sess = em.unwrap(Session.class);
-		return sess.get(Permissions.class, permissions);
-	}
-
+	
 	/**
 	 * Returns ArrayList<Attendants> where user_id = input
 	 * @param userid
@@ -105,17 +102,7 @@ public class AttendantDao {
 	
 	public void removeAttendants(int EventId) {
 		Session eventsess = em.unwrap(Session.class);
-		 //Start Transaction
-		/*
-		String hql = "SELECT user_role_id FROM Attendants"
-				+ " WHERE event_id=:currentEventId and"
-				+ " user_id=:currentUserId";
-				
-		value = (int) em.createQuery(hql)
-				.setParameter("currentEventId", currentEventId)
-				.setParameter("currentUserId", currentUserId).getSingleResult();
 		
-		*/
 		String hql = "From Attendants where event_id=:EventId";
 		List<Attendants> removal = em.createQuery(hql, Attendants.class)
 				.setParameter("EventId", EventId)
@@ -133,6 +120,15 @@ public class AttendantDao {
 		 
 	}
 	
+	public List<Attendants> returnUserPerEventId(int eventId) {
+		//Session eventsess = em.unwrap(Session.class);
+				String hql = "From Attendants where event_id=:eventId";
+		List<Attendants> listOfAttendants = em.createQuery(hql, Attendants.class)
+						.setParameter("eventId", eventId)
+						.getResultList();
+		System.out.println("this attendant returned " + listOfAttendants);
+		return listOfAttendants;
 
+	}
 
 }

@@ -1,6 +1,7 @@
 package project2.daos;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -102,4 +103,15 @@ public class UserDao {
         Session sess = em.unwrap(Session.class);
         return sess.get(Users.class, id);
     }
+    
+    public List<Users> attendantsPerEvent(ArrayList<Integer> userId) {
+      	String hql = "FROM Users WHERE user_id IN :userId";
+		List<Users> myUsers = em.createQuery(hql, Users.class)
+				.setParameter("userId", userId)
+				.getResultList();
+		return myUsers;
+       
+    }
+    
+    
 }
