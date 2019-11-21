@@ -2,6 +2,7 @@ package project2.controls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import project2.entities.Event;
 import project2.services.EventService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("events/*")
 public class EventController {
 
