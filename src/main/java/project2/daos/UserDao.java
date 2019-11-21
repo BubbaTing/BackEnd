@@ -1,6 +1,7 @@
 package project2.daos;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import project2.entities.Attendants;
 import project2.entities.Users;
 import project2.models.Credentials;
 import project2.models.UserRegistration;
@@ -101,5 +103,13 @@ public class UserDao {
     public Users getUserById(int id) {
         Session sess = em.unwrap(Session.class);
         return sess.get(Users.class, id);
+    }
+    
+    public List<Users> getUsersByIdList(ArrayList<Integer> ids){
+		String hql = ("FROM Users WHERE user_id IN :ids");
+		List<Users> users = em.createQuery(hql, Users.class)
+						.setParameter("ids", ids)
+						.getResultList();
+		return users;
     }
 }
