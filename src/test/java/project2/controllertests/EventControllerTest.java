@@ -61,6 +61,7 @@ public class EventControllerTest {
 		//create dummy object to be tested with
 		// id is not set since it will be auto generated
 		Event event = new Event();
+		Event eventOutcome = new Event();
 		event.setTitle("mockTitle1");
 		event.setType(2);
 		event.setDescription("mockDescription1");
@@ -71,7 +72,7 @@ public class EventControllerTest {
 		
 		//Stubbing the implementation of the ___ method
 		when(mockEventService.createEvent(event))
-			.thenReturn(event);
+			.thenReturn(eventOutcome);
 		
 		this.mockMvc.perform(post("/events"))
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
