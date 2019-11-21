@@ -2,6 +2,7 @@ package project2.controllertests;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -61,7 +62,6 @@ public class EventControllerTest {
 		//create dummy object to be tested with
 		// id is not set since it will be auto generated
 		Event event = new Event();
-		Event eventOutcome = new Event();
 		event.setTitle("mockTitle1");
 		event.setType(2);
 		event.setDescription("mockDescription1");
@@ -72,13 +72,14 @@ public class EventControllerTest {
 		
 		//Stubbing the implementation of the ___ method
 		when(mockEventService.createEvent(event))
-			.thenReturn(eventOutcome);
+			.thenReturn(event);
 		
 		this.mockMvc.perform(post("/events/1")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(om.writeValueAsString(event)))
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-			.andExpect(status().is(HttpStatus.CREATED.value()));
+			.andExpect(status().is(HttpStatus.CREATED.value()))
+			.andDo(print());
 		
 	}
 	
@@ -113,4 +114,26 @@ public class EventControllerTest {
 		
 	}
 	
+	@Test //TEST #3
+	/**
+	 * Test the controller to take 
+	 * Event object class
+	 * @throws Exception
+	 */
+	public void deleteEvent() throws Exception{
+		//create dummy object to be tested with
+		Event event3 = new Event();
+		//frontend must send the event_id
+		event3.setEvent_id(4);
+		
+		//Stubbing the implementation of the updateEvent method
+		when(mockEventService.deleteEvent(event3))
+			.thenReturn(1);//1 is success and 0 is failure
+		
+		this.mockMvc.perform(post("/events/3")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(om.writeValueAsString(event3)))
+			.andExpect(status().is(HttpStatus.OK.value()));
+		
+	}
 }
