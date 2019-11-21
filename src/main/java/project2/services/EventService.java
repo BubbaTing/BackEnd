@@ -84,7 +84,7 @@ public class EventService {
 		//Check the permission of the attendant table
 		if(id == 1) {
 			attendDao.removeAttendants(party.getEvent_id());
-			eventRepo.deleteMyEventTest(party.getEvent_id());
+			eventRepo.deleteMyEvent(party.getEvent_id());
 			return 1; //return 1 on successful update
 		}
 		return 0;

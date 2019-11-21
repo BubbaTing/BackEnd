@@ -75,4 +75,8 @@ public class AttendantService {
 	public List<Attendants> getAttendsByUserId(int userid) {
 		return attendDao.getAttendsByUserId(userid);
 	}
+
+	public Attendants updateAttendant(Attendants attend) {
+		return attendDao.updateAttendants(attend);
+	}
 }
