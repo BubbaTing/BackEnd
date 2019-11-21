@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
+import project2.entities.Event;
 import project2.entities.UserRoles;
 
 @Component
@@ -107,5 +108,27 @@ public class AttendantDao {
 		 }
 		 trans.commit();
 		 System.out.println("this attendant deleted " + EventId);	 
+	}
+	
+	/**
+	 * Updates the Attendant object with a new user_role_id.
+	 * Performs a check against existing Attendant to ensure that the user_id, event_id combination already exists.
+	 * @param attend
+	 * @return
+	 */
+	public Attendants updateAttendants(Attendants attend) {
+		Session sess = em.unwrap(Session.class);
+		Transaction trans = sess.beginTransaction();
+		
+		Attendants newAttend = sess.get(Attendants.class, attend.getAttendant_id());
+		newAttend.setUser_role_id(attend.getUser_role_id());
+		
+		if (newAttend.getUser_id() == attend.getUser_id() && newAttend.getEvent_id() == attend.getEvent_id()) {
+			sess.update(newAttend);
+			trans.commit();
+			System.out.println("Updated Attendants: " + newAttend.toString());
+			return newAttend;
+		}
+		return null;
 	}
 }
