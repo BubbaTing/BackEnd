@@ -10,6 +10,7 @@ import javax.persistence.criteria.Root;
 import project2.entities.Event;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.*;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,6 +101,36 @@ public class AttendantDao {
 		System.out.println("This Role Value is" + value);
 
 		return value;
+	}
+	
+	public void removeAttendants(int EventId) {
+		Session eventsess = em.unwrap(Session.class);
+		 //Start Transaction
+		/*
+		String hql = "SELECT user_role_id FROM Attendants"
+				+ " WHERE event_id=:currentEventId and"
+				+ " user_id=:currentUserId";
+				
+		value = (int) em.createQuery(hql)
+				.setParameter("currentEventId", currentEventId)
+				.setParameter("currentUserId", currentUserId).getSingleResult();
+		
+		*/
+		String hql = "From Attendants where event_id=:EventId";
+		List<Attendants> removal = em.createQuery(hql, Attendants.class)
+				.setParameter("EventId", EventId)
+				.getResultList();
+		
+		System.out.println(removal);
+		
+		 Transaction trans = eventsess.beginTransaction();
+		 for(Attendants i: removal) {
+			 Attendants event = eventsess.get(Attendants.class, i.getAttendant_id());
+			 eventsess.delete(event);
+		 }
+		 trans.commit();
+		 System.out.println("this attendant deleted " + EventId);
+		 
 	}
 	
 

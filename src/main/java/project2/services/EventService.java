@@ -74,5 +74,20 @@ public class EventService {
 		}
 		return 0;
 	}
+	
+	public int deleteEvent(Event party) {
+		int id; // user id needed
+		int currentUserId = 1;
+		//Call the attendant table
+		id = attendDao.getRoleValue(party.getEvent_id(), currentUserId);
+		
+		//Check the permission of the attendant table
+		if(id == 1) {
+			attendDao.removeAttendants(party.getEvent_id());
+			eventRepo.deleteMyEventTest(party.getEvent_id());
+			return 1; //return 1 on successful update
+		}
+		return 0;
+	}
 
 }

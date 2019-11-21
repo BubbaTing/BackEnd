@@ -26,4 +26,5 @@ public class EventServiceTests {
 		System.out.println("Event Fetched: " + event.toString());
 		assertTrue("EventService.getUserById() should return an event with one inside the database. (with event_id of 1).", event != null);
 	}
+	
 }

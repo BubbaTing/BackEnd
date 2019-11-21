@@ -41,6 +41,14 @@ public class EventController {
 		return eventService.updateEvent(party);
 	}
 	
+	//2 ==> Update Event
+	@PostMapping("events/3")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public int deleteMyEvent(@RequestBody Event party) {
+		System.out.println("Event Updated in Progress");
+		return eventService.deleteEvent(party);
+	}
+	
 	
 
 }
