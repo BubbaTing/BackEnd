@@ -103,6 +103,17 @@ public class EventDao {
 		System.out.println("Updated");
 		trans.commit();
 	}
+	
+	public void deleteMyEventTest(int myEventId) {
+		 Session eventsess = em.unwrap(Session.class);
+		 //Start Transaction
+		 Transaction trans = eventsess.beginTransaction();
+		 Event event = eventsess.get(Event.class, myEventId);
+		 event.setEvent_id(myEventId);
+		 eventsess.delete(event);
+		 trans.commit();
+		 System.out.println("this event deleted " + myEventId);
+		}
 
 
 
