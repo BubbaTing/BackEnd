@@ -62,6 +62,7 @@ public class AttendantService {
 		
 		newattend.setUser_id(attend.getUser_id());
 		newattend.setEvent_id(attend.getEvent_id());
+	
 		newattend.setUser_role_id(attend.getUser_role_id());
 		
 		return newattend;
@@ -76,7 +77,5 @@ public class AttendantService {
 		return attendDao.getAttendsByUserId(userid);
 	}
 
-	public Attendants updateAttendant(Attendants attend) {
-		return attendDao.updateAttendants(attend);
-	}
+
 }

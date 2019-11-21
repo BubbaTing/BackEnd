@@ -15,6 +15,7 @@ public class Attendants {
 	private int event_id;
 	private int user_role_id;
 	
+	
 	public int getAttendant_id() {
 		return attendant_id;
 	}
@@ -39,13 +40,14 @@ public class Attendants {
 	public void setUser_role_id(int user_role_id) {
 		this.user_role_id = user_role_id;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + attendant_id;
 		result = prime * result + event_id;
+		
 		result = prime * result + user_id;
 		result = prime * result + user_role_id;
 		return result;
@@ -63,6 +65,7 @@ public class Attendants {
 			return false;
 		if (event_id != other.event_id)
 			return false;
+		
 		if (user_id != other.user_id)
 			return false;
 		if (user_role_id != other.user_role_id)
@@ -80,6 +83,7 @@ public class Attendants {
 		this.user_id = user_id;
 		this.event_id = event_id;
 		this.user_role_id = user_role_id;
+	
 	}
 	public Attendants() {
 		super();

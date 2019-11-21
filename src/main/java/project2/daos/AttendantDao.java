@@ -1,5 +1,6 @@
 package project2.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
-import project2.entities.Event;
 import project2.entities.UserRoles;
 
 @Component
@@ -48,6 +48,12 @@ public class AttendantDao {
 		return sess.get(UserRoles.class, userroleid);
 	}
 
+	/**
+	 * Returns Permissions object where permissions_id = input
+	 * @param permissions
+	 * @return
+	 */
+	
 	/**
 	 * Returns ArrayList<Attendants> where user_id = input
 	 * @param userid
@@ -106,7 +112,7 @@ public class AttendantDao {
 	 */
 	public void removeAttendants(int EventId) {
 		Session eventsess = em.unwrap(Session.class);
-
+		
 		String hql = "From Attendants where event_id=:EventId";
 		List<Attendants> removal = em.createQuery(hql, Attendants.class)
 				.setParameter("EventId", EventId)
@@ -123,25 +129,15 @@ public class AttendantDao {
 		 System.out.println("this attendant deleted " + EventId);	 
 	}
 	
-	/**
-	 * Updates the Attendant object with a new user_role_id.
-	 * Performs a check against existing Attendant to ensure that the user_id, event_id combination already exists.
-	 * @param attend
-	 * @return
-	 */
-	public Attendants updateAttendants(Attendants attend) {
-		Session sess = em.unwrap(Session.class);
-		Transaction trans = sess.beginTransaction();
-		
-		Attendants newAttend = sess.get(Attendants.class, attend.getAttendant_id());
-		newAttend.setUser_role_id(attend.getUser_role_id());
-		
-		if (newAttend.getUser_id() == attend.getUser_id() && newAttend.getEvent_id() == attend.getEvent_id()) {
-			sess.update(newAttend);
-			trans.commit();
-			System.out.println("Updated Attendants: " + newAttend.toString());
-			return newAttend;
-		}
-		return null;
+	public List<Attendants> returnUserPerEventId(int eventId) {
+		//Session eventsess = em.unwrap(Session.class);
+				String hql = "From Attendants where event_id=:eventId";
+		List<Attendants> listOfAttendants = em.createQuery(hql, Attendants.class)
+						.setParameter("eventId", eventId)
+						.getResultList();
+		System.out.println("this attendant returned " + listOfAttendants);
+		return listOfAttendants;
+
 	}
+
 }

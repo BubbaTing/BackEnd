@@ -16,6 +16,8 @@ import project2.models.UserRegistration;
 
 @Service
 public class UserService {
+	
+	
 	UserDao userDao = new UserDao();
 	AttendantDao attendDao = new AttendantDao();
 	
@@ -40,14 +42,15 @@ public class UserService {
 	public Users getUserById(int id) {
 		return userDao.getUserById(id);
 	}
-	
 	@Transactional
-	public List<Users> getAttendantsByEventId(int id) {
-		List<Attendants> attends =  attendDao.getAttendantsByEventId(id);
-		ArrayList<Integer> ids = new ArrayList<Integer>();
-		for (Attendants a : attends) {
-			ids.add(a.getUser_id());
+	public List<Users> findNumberOfAttendants(int eventId) {
+		System.out.println("This is the event ID from Client " + eventId);
+		List<Attendants> listOfAttendants = attendDao.returnUserPerEventId(eventId);
+		ArrayList<Integer> mylist = new ArrayList<Integer>();
+		  for(Attendants i: listOfAttendants) {
+			 mylist.add(i.getUser_id());
 		}
-		return userDao.getUsersByIdList(ids);
+		 return userDao.attendantsPerEvent(mylist);
+		
 	}
 }

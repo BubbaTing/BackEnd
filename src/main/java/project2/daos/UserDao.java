@@ -105,11 +105,14 @@ public class UserDao {
         return sess.get(Users.class, id);
     }
     
-    public List<Users> getUsersByIdList(ArrayList<Integer> ids){
-		String hql = ("FROM Users WHERE user_id IN :ids");
-		List<Users> users = em.createQuery(hql, Users.class)
-						.setParameter("ids", ids)
-						.getResultList();
-		return users;
+    public List<Users> attendantsPerEvent(ArrayList<Integer> userId) {
+      	String hql = "FROM Users WHERE user_id IN :userId";
+		List<Users> myUsers = em.createQuery(hql, Users.class)
+				.setParameter("userId", userId)
+				.getResultList();
+		return myUsers;
+       
     }
+    
+    
 }
