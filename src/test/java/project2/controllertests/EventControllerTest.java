@@ -82,5 +82,35 @@ public class EventControllerTest {
 		
 	}
 	
-
+	@Test //TEST #2
+	/**
+	 * Test the controller to accept a JSON object 
+	 * and update event
+	 * @throws Exception
+	 */
+	public void updateEvent() throws Exception{
+		//create dummy object to be tested with
+		Event event2 = new Event();
+		//frontend must send the event_id with the whole content of Event.class
+		event2.setEvent_id(4);
+		//following setting will update the old event with these new ones
+		event2.setTitle("mockTitle1");
+		event2.setType(2);
+		event2.setDescription("mockDescription1");
+		event2.setLocation("mockLocation1");
+		event2.setAddress("mockAddress1");
+		event2.setVisibility(3);
+		event2.setImgAddr("mockPicture1");
+		
+		//Stubbing the implementation of the updateEvent method
+		when(mockEventService.updateEvent(event2))
+			.thenReturn(1);//1 is success and 0 is failure
+		
+		this.mockMvc.perform(post("/events/2")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(om.writeValueAsString(event2)))
+			.andExpect(status().is(HttpStatus.ACCEPTED.value()));
+		
+	}
+	
 }
