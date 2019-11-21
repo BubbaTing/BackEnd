@@ -60,6 +60,19 @@ public class AttendantDao {
 						.getResultList();
 		return attend;
 	}
+	
+	/**
+	 * Returns ArrayList<Attendants> where event_id = input
+	 * @param userid
+	 * @return
+	 */
+	public List<Attendants> getAttendantsByEventId(int eventid) {
+		String hql = ("FROM Attendants WHERE event_id=:eventid");
+		List<Attendants> attend = em.createQuery(hql, Attendants.class)
+						.setParameter("eventid", eventid)
+						.getResultList();
+		return attend;
+	}
 		
 	/**
 	 * By Chong 
