@@ -28,7 +28,6 @@ public class AttendantController {
 	@RequestMapping(path="/attend/1")
 	public Attendants saveAttendant(@RequestBody AttendantCreateRequest attend) {
 		System.out.println("Attempting Attendant Write...");
-		System.out.println("ACR in: " + attend.toString());
 		return attendServ.saveAttendant(attend);
 	}
 	

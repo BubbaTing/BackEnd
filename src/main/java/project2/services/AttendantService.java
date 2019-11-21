@@ -34,8 +34,7 @@ public class AttendantService {
 	@Transactional
 	public Attendants saveAttendant(AttendantCreateRequest acr){
 		Attendants attend = mapAttendantsReq(acr);
-		System.out.println("ACR in: " + acr.toString());
-		System.out.println("Saving Attendants :" + attend.toString());
+		System.out.println("Saving Attendants : " + attend.toString());
 		return attendDao.saveAttendant(attend);
 
 	}
@@ -63,12 +62,16 @@ public class AttendantService {
 		
 		newattend.setUser_id(attend.getUser_id());
 		newattend.setEvent_id(attend.getEvent_id());
-		newattend.setPermissions_id(attend.getPermissions_id());
 		newattend.setUser_role_id(attend.getUser_role_id());
 		
 		return newattend;
 	}
 
+	/**
+	 * Returns a list of Attendants given a UserId.
+	 * @param userid
+	 * @return
+	 */
 	public List<Attendants> getAttendsByUserId(int userid) {
 		return attendDao.getAttendsByUserId(userid);
 	}
