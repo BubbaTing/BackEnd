@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import project2.controls.EventController;
 import project2.entities.Event;
+import project2.models.Planner;
 import project2.services.EventService;
 
 @RunWith(SpringRunner.class)
@@ -91,17 +92,19 @@ public class EventControllerTest {
 	 */
 	public void updateEvent() throws Exception{
 		//create dummy object to be tested with
-		Event event2 = new Event();
+		Planner event2 = new Planner();
+		Event party2 = new Event();
 		//frontend must send the event_id with the whole content of Event.class
-		event2.setEvent_id(4);
+		event2.setClientRequest(party2);
+		event2.getClientRequest().setEvent_id(4);
 		//following setting will update the old event with these new ones
-		event2.setTitle("mockTitle1");
-		event2.setType(2);
-		event2.setDescription("mockDescription1");
-		event2.setLocation("mockLocation1");
-		event2.setAddress("mockAddress1");
-		event2.setVisibility(3);
-		event2.setImgAddr("mockPicture1");
+		event2.getClientRequest().setTitle("mockTitle1");
+		event2.getClientRequest().setType(2);
+		event2.getClientRequest().setDescription("mockDescription1");
+		event2.getClientRequest().setLocation("mockLocation1");
+		event2.getClientRequest().setAddress("mockAddress1");
+		event2.getClientRequest().setVisibility(3);
+		event2.getClientRequest().setImgAddr("mockPicture1");
 		
 		//Stubbing the implementation of the updateEvent method
 		when(mockEventService.updateEvent(event2))
@@ -122,9 +125,11 @@ public class EventControllerTest {
 	 */
 	public void deleteEvent() throws Exception{
 		//create dummy object to be tested with
-		Event event3 = new Event();
+		Planner event3 = new Planner();
+		Event party3 = new Event();
 		//frontend must send the event_id
-		event3.setEvent_id(4);
+		event3.setClientRequest(party3);
+		event3.getClientRequest().setEvent_id(4);
 		
 		//Stubbing the implementation of the updateEvent method
 		when(mockEventService.deleteEvent(event3))
