@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
 import project2.entities.UserRoles;
+import project2.entities.Users;
 
 @Component
 public class AttendantDao {
@@ -168,13 +169,30 @@ public class AttendantDao {
 		return null;
 	}
 
-	/*
+	/**
 	 * Returns a list of Attendants given a user_id.
+	 * @param userid
+	 * @return
 	 */
 	public List<Attendants> getAttendsListByUserId(int userid){
 		String hql = "From Attendants where user_id=:userId";
 		List<Attendants> listOfAttendants = em.createQuery(hql, Attendants.class)
 						.setParameter("userId", userid)
+						.getResultList();
+		System.out.println("this attendant returned " + listOfAttendants);
+		return listOfAttendants;
+	}
+
+	/**
+	 * Returns a list of Attendants where the given user is the creator of the associated event
+	 * @param user
+	 * @return
+	 */
+	public List<Attendants> getAttendsListByCreatorId(int userid) {
+		String hql = "From Attendants where user_id=:userId AND user_role_id=:roleId";
+		List<Attendants> listOfAttendants = em.createQuery(hql, Attendants.class)
+						.setParameter("userId", userid)
+						.setParameter("roleId", 1)
 						.getResultList();
 		System.out.println("this attendant returned " + listOfAttendants);
 		return listOfAttendants;
