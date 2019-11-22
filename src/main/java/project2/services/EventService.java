@@ -11,6 +11,7 @@ import project2.daos.AttendantDao;
 import project2.daos.EventDao;
 import project2.entities.Attendants;
 import project2.entities.Event;
+import project2.models.Planner;
 
 @Service
 public class EventService {
@@ -58,38 +59,31 @@ public class EventService {
 	 * 
 	 * 	the update is a failure?
 	 */
-	public int updateEvent(Event party) {
-		/* check the attendants table;
-		 *	select * from the attendant table where event id and user id == 1 
-		 *	if(permission id == 1) allow edit
-		 *	else return null
-		 */
-		int id; // user id needed
-		int currentUserId = 1;
+	public int updateEvent(Planner party) {
+		int id; // value of user_role_id
 		//Call the attendant table
-		id = attendDao.getRoleValue(party.getEvent_id(), currentUserId);
+		id = attendDao.getRoleValue(party.getClientRequest().getEvent_id(), party.getUserId());
 		
 		//Check the permission of the attendant table
 		if(id == 1) {
-			eventRepo.updateEventDAO(party);
+			eventRepo.updateEventDAO(party.getClientRequest());
 			return 1; //return 1 on successful update
 		}
-		return 0;
+		return 0;//return on failure user is not allow to edit this event
 	}
 	
-	public int deleteEvent(Event party) {
-		int id; // user id needed
-		int currentUserId = 1;
+	public int deleteEvent(Planner party) {
+		int id;  // value of user_role_id
 		//Call the attendant table
-		id = attendDao.getRoleValue(party.getEvent_id(), currentUserId);
+		id = attendDao.getRoleValue(party.getClientRequest().getEvent_id(), party.getUserId());
 		
 		//Check the permission of the attendant table
 		if(id == 1) {
-			attendDao.removeAttendants(party.getEvent_id());
-			eventRepo.deleteMyEvent(party.getEvent_id());
+			attendDao.removeAttendants(party.getClientRequest().getEvent_id());
+			eventRepo.deleteMyEvent(party.getClientRequest().getEvent_id());
 			return 1; //return 1 on successful update
 		}
-		return 0;
+		return 0; //return on failure user is not allow to edit this event
 	}
 
 

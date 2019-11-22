@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import project2.entities.Event;
+import project2.models.Planner;
 import project2.services.EventService;
 
 @RestController
@@ -44,7 +45,7 @@ public class EventController {
 	 */
 	@PostMapping("events/2")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public int updateMyEvent(@RequestBody Event party) {
+	public int updateMyEvent(@RequestBody Planner party) {
 		System.out.println("Event Updated in Progress");
 		return eventService.updateEvent(party);
 	}
@@ -57,7 +58,7 @@ public class EventController {
 	 */
 	@PostMapping("events/3")
 	@ResponseStatus(HttpStatus.OK)
-	public int deleteMyEvent(@RequestBody Event party) {
+	public int deleteMyEvent(@RequestBody Planner party) {
 		System.out.println("Event Updated in Progress");
 		return eventService.deleteEvent(party);
 	}
