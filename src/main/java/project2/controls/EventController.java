@@ -78,7 +78,10 @@ public class EventController {
 	/**
 	 * Returns a list of events that a given user_id is attending.
 	 */
-
-	
-
+	@GetMapping("events/5")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Event> getEventsByCreatorId(@RequestBody int userid){
+		System.out.println("Retrieving Events by CreatorId...");
+		return eventService.getEventsByCreatorId(userid);
+	}
 }
