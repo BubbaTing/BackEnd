@@ -86,4 +86,15 @@ public class EventController {
 		System.out.println("Retrieving Events by CreatorId...");
 		return eventService.getEventsByCreatorId(userid);
 	}
+	
+	//6 ==> Returns an Event given its event_id
+	/**
+	 * Returns a list of events that a given user_id created.
+	 */
+	@GetMapping("/6/{eventid}")
+	@ResponseStatus(HttpStatus.OK)
+	public Event getEventByEventId(@PathVariable int eventid){
+		System.out.println("Retrieving Events by EventId...");
+		return eventService.getEventById(eventid);
+	}
 }
