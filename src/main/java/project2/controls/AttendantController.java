@@ -44,7 +44,7 @@ public class AttendantController {
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(path="/attend/2")
 	public Attendants updateAttendants(@RequestBody Attendants attend) {
-		System.out.println("Attempting Attendant Read by User...");
+		System.out.println("Attempting Attendant Update...");
 		return attendServ.updateAttendant(attend);
 	}
 	
