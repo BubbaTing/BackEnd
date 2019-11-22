@@ -1,6 +1,7 @@
 package project2.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import project2.daos.AttendantDao;
 import project2.daos.EventDao;
+import project2.entities.Attendants;
 import project2.entities.Event;
+import project2.entities.Users;
 import project2.models.Planner;
 
 @Service
@@ -84,4 +87,35 @@ public class EventService {
 		return 0; //return on failure user is not allow to edit this event
 	}
 
+	/**
+	 * Returns a list of events that a given user_id is subscribed to
+	 * @param userid
+	 * @return
+	 */
+	public List<Event> getEventsByUserId(int userid) {
+		List<Attendants> attends= attendDao.getAttendsListByUserId(userid);
+		ArrayList<Integer> userids = new ArrayList<Integer>();
+		  for(Attendants i: attends) {
+			 userids.add(i.getEvent_id());
+		}
+		List<Event> events = eventRepo.getEventsByUserId(userids);
+		
+		return events;
+	}
+
+	/**
+	 * Returns a list of events that a given user_id created
+	 * @param userid
+	 * @return
+	 */
+	public List<Event> getEventsByCreatorId(int userid) {
+		List<Attendants> attends= attendDao.getAttendsListByCreatorId(userid);
+		ArrayList<Integer> eventids = new ArrayList<Integer>();
+		  for(Attendants i: attends) {
+			 eventids.add(i.getEvent_id());
+		}
+		List<Event> events = eventRepo.getEventsByUserId(eventids);
+		
+		return events;
+	}
 }

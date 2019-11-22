@@ -3,6 +3,7 @@ package project2.daos;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Event;
+import project2.entities.Users;
 
 @Component
 public class EventDao {
@@ -104,6 +106,10 @@ public class EventDao {
 		trans.commit();
 	}
 	
+	/**
+	 * Deletes an Event given its event_id (and only the event, don't forget to delete the attendants!)
+	 * @param myEventId
+	 */
 	public void deleteMyEvent(int myEventId) {
 		 Session eventsess = em.unwrap(Session.class);
 		 //Start Transaction
@@ -113,6 +119,19 @@ public class EventDao {
 		 eventsess.delete(event);
 		 trans.commit();
 		 System.out.println("this event deleted " + myEventId);
+	}
+
+	/**
+	 * Returns a list of events given an ArrayList<Integers> containing user_id's. Used inside of EventService.getEventsByUserId()
+	 * @param userid
+	 * @return
+	 */
+	public List<Event> getEventsByUserId(ArrayList<Integer> eventids) {
+      	String hql = "FROM Event WHERE event_id IN :eventIds";
+		List<Event> events = em.createQuery(hql, Event.class)
+				.setParameter("eventIds", eventids)
+				.getResultList();
+		return events;  
 	}
 
 

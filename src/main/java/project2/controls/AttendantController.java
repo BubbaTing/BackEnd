@@ -1,11 +1,8 @@
 package project2.controls;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,20 +33,7 @@ public class AttendantController {
 		System.out.println("Attempting Attendant Write...");
 		return attendServ.saveAttendant(attend);
 	}
-	
-	/**
-	 * Returns a list of attendants given a Userid.
-	 * @param id
-	 * @return
-	 */
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(path="/attend/2")
-	public List<Attendants> getAttendantsByUserId(@RequestBody int id) {
-		System.out.println("Attempting Attendant Read by User...");
-		return attendServ.getAttendsByUserId(id);
-	}
-	
+		
 	/**
 	 * Updates an attendants record given the incoming attendants user_id, event_id 
 	 * exists in the database already.
@@ -58,9 +42,9 @@ public class AttendantController {
 	 */
 	@PutMapping
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(path="/attend/3")
+	@RequestMapping(path="/attend/2")
 	public Attendants updateAttendants(@RequestBody Attendants attend) {
-		System.out.println("Attempting Attendant Read by User...");
+		System.out.println("Attempting Attendant Update...");
 		return attendServ.updateAttendant(attend);
 	}
 	
@@ -69,5 +53,19 @@ public class AttendantController {
 		super();
 		this.attendServ = attendServ;
 	}
+	
+	// We dont want this request exposed for the moment, if we need it we can uncomment and update it.
+//	/**
+//	 * Returns a list of attendants given a Userid.
+//	 * @param id
+//	 * @return
+//	 */
+//	@GetMapping
+//	@ResponseStatus(HttpStatus.OK)
+//	@RequestMapping(path="/attend/2")
+//	public List<Attendants> getAttendantsByUserId(@RequestBody int id) {
+//		System.out.println("Attempting Attendant Read by User...");
+//		return attendServ.getAttendsByUserId(id);
+//	}
 	
 }
