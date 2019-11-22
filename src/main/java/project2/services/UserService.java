@@ -51,6 +51,5 @@ public class UserService {
 			 mylist.add(i.getUser_id());
 		}
 		 return userDao.attendantsPerEvent(mylist);
-		
 	}
 }
