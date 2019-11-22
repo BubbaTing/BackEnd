@@ -65,9 +65,9 @@ public class UserControllerTest {
 		Date date = new Date();
 		UserRegistration regreq = new UserRegistration();
 		user.setCreatedDate(new Timestamp(date.getTime()));
-		user.setFirstname("Haider");
-		user.setLastname("King");
-		user.setEmail("king@gmail.com");
+		user.setFirstname(regreq.getFirstName());
+		user.setLastname(regreq.getLastName());
+		user.setEmail(regreq.getEmail());
 		user.setAvatarURL(regreq.getAvatar_url());
 		when(userServiceTest.createUser(regreq))
 		.thenReturn(user);
