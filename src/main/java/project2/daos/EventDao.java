@@ -10,11 +10,11 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Event;
-import project2.entities.Users;
 
 @Component
 public class EventDao {
@@ -34,6 +34,7 @@ public class EventDao {
 		Session eventsess = em.unwrap(Session.class);
 		Event event = newEvent(party);
 		
+		System.out.println("Dao Saving Event: " + event.toString());		
 		eventsess.persist(event);
 		
 		
@@ -127,11 +128,16 @@ public class EventDao {
 	 * @return
 	 */
 	public List<Event> getEventsByUserId(ArrayList<Integer> eventids) {
-      	String hql = "FROM Event WHERE event_id IN :eventIds";
-		List<Event> events = em.createQuery(hql, Event.class)
-				.setParameter("eventIds", eventids)
-				.getResultList();
-		return events;  
+		try {
+			String hql = "FROM Event WHERE event_id IN :eventIds";
+			List<Event> events = em.createQuery(hql, Event.class)
+					.setParameter("eventIds", eventids)
+					.getResultList();
+			return events;  
+		} catch (NullPointerException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 
