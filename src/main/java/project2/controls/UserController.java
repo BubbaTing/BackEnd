@@ -26,7 +26,7 @@ public class UserController {
 
     UserService userService;
 
-    @PostMapping("users/1")
+    @PostMapping("/1")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@RequestBody UserRegistration regreq) {
         System.out.println("Attempting User Write...");
@@ -43,7 +43,7 @@ public class UserController {
     }
     
 	//2 ==> getting the number of attendants per event
-	@PostMapping("users/2")
+	@PostMapping("/2")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public List<Users> numberOfAttendantsPerEvent(@RequestBody int party) {
 		System.out.println("Event Updated in Progress");
