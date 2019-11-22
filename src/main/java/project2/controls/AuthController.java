@@ -31,7 +31,7 @@ public class AuthController {
         System.out.println("Attempting User Auth...");
         Users user = userService.getUserByCred(cred);
         UserResponse uresp = new UserResponse(user);
-        response.addHeader("JWT", jwtServ.signJWT(user));
+        uresp.setJwt(jwtServ.signJWT(user));
         return uresp;
     }
 

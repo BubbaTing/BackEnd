@@ -3,11 +3,18 @@ package project2.models;
 import project2.entities.Users;
 
 public class UserResponse {
-	private int userid;
+	private int userid;	
 	private String firstname;
 	private String email;
 	private String avatar;
+	private String jwt;
 	
+	public String getJwt() {
+		return jwt;
+	}
+	public void setJwt(String jwt) {
+		this.jwt = jwt;
+	}
 	public int getUserid() {
 		return userid;
 	}
@@ -32,6 +39,12 @@ public class UserResponse {
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+	
+	@Override
+	public String toString() {
+		return "UserResponse [userid=" + userid + ", firstname=" + firstname + ", email=" + email + ", avatar=" + avatar
+				+ ", jwt=" + jwt + "]";
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -39,6 +52,7 @@ public class UserResponse {
 		result = prime * result + ((avatar == null) ? 0 : avatar.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
+		result = prime * result + ((jwt == null) ? 0 : jwt.hashCode());
 		result = prime * result + userid;
 		return result;
 	}
@@ -66,19 +80,26 @@ public class UserResponse {
 				return false;
 		} else if (!firstname.equals(other.firstname))
 			return false;
+		if (jwt == null) {
+			if (other.jwt != null)
+				return false;
+		} else if (!jwt.equals(other.jwt))
+			return false;
 		if (userid != other.userid)
 			return false;
 		return true;
 	}
-	public UserResponse(int userid, String firstname, String email, String avatar) {
+	public UserResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public UserResponse(int userid, String firstname, String email, String avatar, String jwt) {
 		super();
 		this.userid = userid;
 		this.firstname = firstname;
 		this.email = email;
 		this.avatar = avatar;
-	}
-	public UserResponse() {
-		super();
+		this.jwt = jwt;
 	}
 	public UserResponse(Users user) {
 		this.userid = user.getUser_id();
