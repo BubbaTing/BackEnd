@@ -100,19 +100,26 @@ public class UserDao {
         }
     }
 
+    /**
+     * Returns a user given their user_id.
+     * @param id
+     * @return
+     */
     public Users getUserById(int id) {
         Session sess = em.unwrap(Session.class);
         return sess.get(Users.class, id);
     }
     
+    /**
+     * Returns a list of Users given an ArrayList of their user_id's.
+     * @param userId
+     * @return
+     */
     public List<Users> attendantsPerEvent(ArrayList<Integer> userId) {
       	String hql = "FROM Users WHERE user_id IN :userId";
 		List<Users> myUsers = em.createQuery(hql, Users.class)
 				.setParameter("userId", userId)
 				.getResultList();
-		return myUsers;
-       
+		return myUsers;  
     }
-    
-    
 }
