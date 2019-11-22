@@ -1,6 +1,5 @@
 package project2.daos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -28,7 +27,7 @@ public class AttendantDao {
 	}
 
 	/**
-	 * Returns an array of attendants objects given a userid
+	 * Returns an attendants object given a userid
 	 * @param id
 	 * @return
 	 */
@@ -129,9 +128,15 @@ public class AttendantDao {
 		 System.out.println("this attendant deleted " + EventId);	 
 	}
 	
+	
+	/**
+	 * Returns a list of Attendants given an event_id. 
+	 * @param eventId
+	 * @return
+	 */
 	public List<Attendants> returnUserPerEventId(int eventId) {
 		//Session eventsess = em.unwrap(Session.class);
-				String hql = "From Attendants where event_id=:eventId";
+		String hql = "From Attendants where event_id=:eventId";
 		List<Attendants> listOfAttendants = em.createQuery(hql, Attendants.class)
 						.setParameter("eventId", eventId)
 						.getResultList();
@@ -140,4 +145,38 @@ public class AttendantDao {
 
 	}
 
+	/**
+	 * Updates an attendant object if its user_id, event_id combination exist in the database.
+	 * @param attend
+	 * @return
+	 */
+	public Attendants updateAttendant(Attendants attend) {
+		Session sess = em.unwrap(Session.class);
+		Transaction trans = sess.beginTransaction();
+	
+		Attendants newAttend = sess.get(Attendants.class, attend.getAttendant_id());
+		newAttend.setUser_role_id(attend.getUser_role_id());
+		
+		if (attend.getUser_id() == newAttend.getUser_id() && attend.getEvent_id() == newAttend.getEvent_id()){
+			sess.update(newAttend);
+
+			trans.commit();
+			System.out.println("Updated Attendant: " + newAttend.toString());
+			return newAttend;
+		}
+		
+		return null;
+	}
+
+	/*
+	 * Returns a list of Attendants given a user_id.
+	 */
+	public List<Attendants> getAttendsListByUserId(int userid){
+		String hql = "From Attendants where user_id=:userId";
+		List<Attendants> listOfAttendants = em.createQuery(hql, Attendants.class)
+						.setParameter("userId", userid)
+						.getResultList();
+		System.out.println("this attendant returned " + listOfAttendants);
+		return listOfAttendants;
+	}
 }

@@ -77,5 +77,13 @@ public class AttendantService {
 		return attendDao.getAttendsByUserId(userid);
 	}
 
+	/**
+	 * Updates an attendant record.
+	 * @param attend
+	 * @return
+	 */
+	public Attendants updateAttendant(Attendants attend) {
+		return attendDao.updateAttendant(attend);
+	}
 
 }

@@ -1,6 +1,7 @@
 package project2.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import project2.daos.AttendantDao;
 import project2.daos.EventDao;
+import project2.entities.Attendants;
 import project2.entities.Event;
 
 @Service
@@ -88,6 +90,18 @@ public class EventService {
 			return 1; //return 1 on successful update
 		}
 		return 0;
+	}
+
+
+	public List<Event> getEventsByUserId(int userid) {
+		List<Attendants> attends= attendDao.getAttendsListByUserId(userid);
+		ArrayList<Integer> userids = new ArrayList<Integer>();
+		  for(Attendants i: attends) {
+			 userids.add(i.getEvent_id());
+		}
+		List<Event> events = eventRepo.getEventsByUserId(userids);
+		
+		return events;
 	}
 
 }
