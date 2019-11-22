@@ -1,6 +1,8 @@
 package project2.services;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import project2.models.Planner;
 public class EventService {
 	EventDao eventRepo;
 	AttendantDao attendDao;
+	Date date = new Date();
 	
 	
 	@Autowired
@@ -34,9 +37,12 @@ public class EventService {
 	 */
 	@Transactional
 	public Event createEvent(Planner newEvent) {
-		System.out.println("Service Saving Event: " + newEvent.getClientRequest().toString());
 		Event savedEvent = eventRepo.save(newEvent.getClientRequest());
-		Attendants attend = mapEventCreationAttend(newEvent.getUserId(), newEvent.getClientRequest().getEvent_id());
+
+		System.out.println(savedEvent.toString());
+		System.out.println("Service Attempting Attendants creation");
+		Attendants attend = mapEventCreationAttend(newEvent.getUserId(), savedEvent.getEvent_id());
+		System.out.println("Service Saving Attendants: " + attend.toString());
 		attendDao.saveAttendant(attend);
 		return savedEvent;
 	}
@@ -53,7 +59,7 @@ public class EventService {
 		attend.setUser_id(userId);
 		attend.setEvent_id(event_id);
 		attend.setUser_role_id(1);
-		return null;
+		return attend;
 	}
 
 	/**
@@ -64,17 +70,6 @@ public class EventService {
 	@Transactional
 	public Event getEventById(int id ) {
 		return eventRepo.getEventById(id);
-	}
-	
-	//TODO - relies on Attendants Table
-	/**
-	 * Returns an arraylist of Events given a userID
-	 * @param id
-	 * @return
-	 */
-	@Transactional
-	public ArrayList<Event> getUsersEvents(int id ){
-		return eventRepo.getUsersEvents(id);
 	}
 
 	

@@ -31,7 +31,7 @@ public class EventController {
 	}
 
 	//1 ==> Create Event
-	@PostMapping("/1")
+	@PostMapping("1")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Event createEvent(@RequestBody Planner newEvent) {
 		System.out.println("Attempting Event Creation...");
