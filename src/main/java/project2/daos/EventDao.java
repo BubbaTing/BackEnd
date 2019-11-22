@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,15 +29,11 @@ public class EventDao {
 	 * @param party
 	 * @return
 	 */
-	public Event save(Event party) {
-		Session eventsess = em.unwrap(Session.class);
-		Event event = newEvent(party);
-		
-		System.out.println("Dao Saving Event: " + event.toString());		
-		eventsess.persist(event);
-		
-		
-		return event;
+	public Event save(Event event) {
+		Session sess = em.unwrap(Session.class);
+		Event newEvent = newEvent(event);	
+		sess.persist(newEvent);
+		return newEvent;
 	}
 	
 	/**
@@ -46,13 +41,13 @@ public class EventDao {
 	 * @param party
 	 * @return
 	 */
-	private Event newEvent(Event party) {
+	public Event newEvent(Event party) {
 		Event new_party = new Event();
 		new_party.setTitle(party.getTitle());
 		new_party.setType(party.getType());
 		new_party.setCreated(new Timestamp(date.getTime()));
-		new_party.setStartTime(new Timestamp(date.getTime()));
-		new_party.setEndTime(new Timestamp(date.getTime()));
+		new_party.setStartTime(party.getStartTime());
+		new_party.setEndTime(party.getEndTime());
 		new_party.setDescription(party.getDescription());
 		new_party.setLocation(party.getLocation());
 		new_party.setAddress(party.getAddress());
@@ -69,17 +64,6 @@ public class EventDao {
 	public Event getEventById(int id) {
 		Session sess = em.unwrap(Session.class);
 		return sess.get(Event.class, id);
-	}
-
-	/**
-	 * Returns a list of Events given a userid
-	 * @param id
-	 * @return
-	 */
-	public ArrayList<Event> getUsersEvents(int id) {
-		Session sess = em.unwrap(Session.class);
-		
-		return null;
 	}
 
 	/**
@@ -139,7 +123,16 @@ public class EventDao {
 			return null;
 		}
 	}
-
-
-
+	
+//	public int getMaxEventId() {
+//		String hql = "SELECT event_id FROM Event";
+//		List<Integer> eventids = em.createQuery(hql, Integer.class)
+//						.getResultList();
+//		int max = 0;
+//		for(Integer i: eventids) {
+//			if (i > max) max = i;
+//		}
+//		System.out.println("Max EventID: " + (max + 1));
+//		return max + 1;
+//	}
 }
