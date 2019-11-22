@@ -63,7 +63,7 @@ public class AttendantController {
 //	@GetMapping
 //	@ResponseStatus(HttpStatus.OK)
 //	@RequestMapping(path="/attend/2")
-//	public List<Attendants> getAttendantsByUserId(@RequestBody int id) {
+//	public List<Attendants> getAttendantsByUserId(@RequestBody int id) {s
 //		System.out.println("Attempting Attendant Read by User...");
 //		return attendServ.getAttendsByUserId(id);
 //	}
