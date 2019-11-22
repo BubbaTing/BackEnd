@@ -70,16 +70,36 @@ public class JWTService {
 	
 
 	/**
-	 * Attempts to read the UserId from a JWT String, returns a 0 if the JWT is invalid.
+	 * Attempts to read the UserId from a JWT String and compares it against the given userid
 	 * @param jwt
+	 * @return
+	 */
+	public boolean validateJWT(String jwsString, int useridin) {
+		try {
+			Jws<Claims> jwsclaims = Jwts.parser()        
+					.setSigningKey(getSecret())         
+					.parseClaimsJws(jwsString);
+			int userid = jwsclaims.getBody().get("userId", Integer.class);
+			System.out.println("Attempting JWT auth with UserId: " + useridin + " and JWT UserId: " + userid);
+			if(useridin == userid) return true;
+			return false;
+		} catch (JwtException ex) {     // (4)
+			System.out.println("JWT Authentication failure...");
+			return false;
+		}
+	}
+	
+	/**
+	 * Attempts to parse claims from a JWS, returns true if it is a valid JWT.
+	 * DOES NOT CHECK AGAINST USER IDENTITY.
+	 * @param jwsString
 	 * @return
 	 */
 	public boolean validateJWT(String jwsString) {
 		try {
-			Jws<Claims> jws = Jwts.parser()        
+			Jws<Claims> jwsclaims = Jwts.parser()        
 					.setSigningKey(getSecret())         
-					.parseClaimsJws(jwsString); 
-			
+					.parseClaimsJws(jwsString);
 			return true;
 		} catch (JwtException ex) {     // (4)
 			System.out.println("JWT Authentication failure...");
@@ -87,3 +107,4 @@ public class JWTService {
 		}
 	}
 }
+

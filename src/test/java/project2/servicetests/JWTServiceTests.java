@@ -19,7 +19,7 @@ public class JWTServiceTests {
 	@Autowired
 	JWTService jwtserv;
 	
-	//Testing JWT
+	//Expired JWT
 	String testJWS = "eyJhbGciOiJIUzUxMiJ9"
 			+ ".eyJpc3MiOiJUZWFtVm9sZGVtb3J0Iiwic3ViIjoiSXJvbm1hbixPcmFuZ2UiLCJpYXQiOjE1NzQxMDQ1NjIsImV4cCI6MTU3NDEwMDk2MiwidXNlcklkIjozfQ"
 			+ ".vmc3x_dEkCJ-eLoqjNDsADYNnJNipqH5awKgWcFmOd-HqqSRIY21t4FbrhWlrOEbDqhJLmbCb-ldDr53oknxEw";
@@ -38,8 +38,21 @@ public class JWTServiceTests {
 		assertTrue("The validateJWT() method should return true for valid JWT", jwtserv.validateJWT(jwt));
 	}
 	
+	@Test 
+	public void testValidateJWTWithId() {
+		String jwt = jwtserv.signJWT(testUser);
+		assertTrue("The validateJWT() method should return true for a valid JWT and userId combination", jwtserv.validateJWT(jwt, 1));
+	}
+	
+	@Test 
+	public void testValidateJWTWithWrongId() {
+		String jwt = jwtserv.signJWT(testUser);
+		assertFalse("The validateJWT() method should return true for a valid JWT and userId combination", jwtserv.validateJWT(jwt, 2));
+	}
+	
 	@Test
 	public void testExpiredJWT() {
 		assertFalse("The validateJWT() method should return false for expired JWT", jwtserv.validateJWT(testJWS));
 	}
+	
 }
