@@ -30,8 +30,8 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@RequestBody UserRegistration regreq) {
         System.out.println("Attempting User Write...");
-        Users user = userService.createUser(regreq);
-        return new UserResponse(user);
+        UserResponse uresp = userService.createUser(regreq);
+        return uresp;
     }
 	
 	
