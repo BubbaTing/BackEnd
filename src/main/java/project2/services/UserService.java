@@ -41,7 +41,13 @@ public class UserService {
 	
 	@Transactional
 	public Users getUserByCred(Credentials cred) {
-		return userDao.getUserByCred(cred);
+		try {
+			return userDao.getUserByCred(cred);
+		} catch (NullPointerException e) {
+			System.out.println("Unable to Authenicate Credentials: NullPointerException");
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	@Transactional

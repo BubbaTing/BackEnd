@@ -3,6 +3,7 @@ package project2.daos;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
 import project2.entities.UserRoles;
-import project2.entities.Users;
 
 @Component
 public class AttendantDao {
@@ -88,16 +88,20 @@ public class AttendantDao {
      */
     public int getRoleValue(int currentEventId, int currentUserId) {
         int value;
-
-        String hql = "SELECT user_role_id FROM Attendants" + " WHERE event_id=:currentEventId and"
+        try {
+        	String hql = "SELECT user_role_id FROM Attendants" + " WHERE event_id=:currentEventId and"
                 + " user_id=:currentUserId";
 
-        value = (int) em.createQuery(hql).setParameter("currentEventId", currentEventId)
+        	value = (int) em.createQuery(hql).setParameter("currentEventId", currentEventId)
                 .setParameter("currentUserId", currentUserId).getSingleResult();
 
-        System.out.println("This Role Value is" + value);
+        	System.out.println("This Role Value is" + value);
 
-        return value;
+        	return value;
+        } catch (NoResultException e) {
+        	e.printStackTrace();
+        	return 0;
+        }
     }
 
     /**

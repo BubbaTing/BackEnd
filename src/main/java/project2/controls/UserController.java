@@ -42,7 +42,7 @@ public class UserController {
         this.userService = userServ;
     }
     
-	//2 ==> getting the number of attendants per event
+	//2 ==> Returns a list of users attending an event given its event_id
 	@PostMapping("/2")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public List<Users> numberOfAttendantsPerEvent(@RequestBody int party) {
