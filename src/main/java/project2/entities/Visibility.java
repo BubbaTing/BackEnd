@@ -16,7 +16,7 @@ public class Visibility {
 	private int visibility_id;
 	
 	@Column(nullable = false, length = 25)
-	private String user_role_description;
+	private String visibility_description;
 	
     @OneToMany(mappedBy="visibility")
     private Set<Event> event;
@@ -28,20 +28,20 @@ public class Visibility {
 	public void setVisibility_id(int visibility_id) {
 		this.visibility_id = visibility_id;
 	}
-
-	public String getUser_role_description() {
-		return user_role_description;
+		
+	public String getVisibility_description() {
+		return visibility_description;
 	}
 
-	public void setUser_role_description(String user_role_description) {
-		this.user_role_description = user_role_description;
+	public void setVisibility_description(String visibility_description) {
+		this.visibility_description = visibility_description;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((user_role_description == null) ? 0 : user_role_description.hashCode());
+		result = prime * result + ((visibility_description == null) ? 0 : visibility_description.hashCode());
 		result = prime * result + visibility_id;
 		return result;
 	}
@@ -55,25 +55,26 @@ public class Visibility {
 		if (getClass() != obj.getClass())
 			return false;
 		Visibility other = (Visibility) obj;
-		if (user_role_description == null) {
-			if (other.user_role_description != null)
+		if (visibility_description == null) {
+			if (other.visibility_description != null)
 				return false;
-		} else if (!user_role_description.equals(other.user_role_description))
+		} else if (!visibility_description.equals(other.visibility_description))
 			return false;
 		if (visibility_id != other.visibility_id)
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Visibility [visibility_id=" + visibility_id + ", user_role_description=" + user_role_description + "]";
+		return "Visibility [visibility_id=" + visibility_id + ", visibility_description=" + visibility_description
+				+ "]";
 	}
-
-	public Visibility(int visibility_id, String user_role_description) {
+	
+	public Visibility(int visibility_id, String visibility_description) {
 		super();
 		this.visibility_id = visibility_id;
-		this.user_role_description = user_role_description;
+		this.visibility_description = visibility_description;
 	}
 
 	public Visibility() {
