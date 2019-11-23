@@ -3,6 +3,7 @@ package project2.daos;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Session;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Component;
 
 import project2.entities.Attendants;
 import project2.entities.UserRoles;
-import project2.entities.Users;
 
 @Component
 public class AttendantDao {
@@ -88,16 +88,20 @@ public class AttendantDao {
      */
     public int getRoleValue(int currentEventId, int currentUserId) {
         int value;
-
-        String hql = "SELECT user_role_id FROM Attendants" + " WHERE event_id=:currentEventId and"
+        try {
+        	String hql = "SELECT user_role_id FROM Attendants" + " WHERE event_id=:currentEventId and"
                 + " user_id=:currentUserId";
 
-        value = (int) em.createQuery(hql).setParameter("currentEventId", currentEventId)
+        	value = (int) em.createQuery(hql).setParameter("currentEventId", currentEventId)
                 .setParameter("currentUserId", currentUserId).getSingleResult();
 
-        System.out.println("This Role Value is" + value);
+        	System.out.println("This Role Value is" + value);
 
-        return value;
+        	return value;
+        } catch (NoResultException e) {
+        	e.printStackTrace();
+        	return 0;
+        }
     }
 
     /**
@@ -186,4 +190,27 @@ public class AttendantDao {
         System.out.println("this attendant returned " + listOfAttendants);
         return listOfAttendants;
     }
+
+	public int deleteAttendants(Attendants attend) {
+		try {
+//			String hql = ("DELETE FROM Attendants WHERE user_id=:userId AND event_id=:eventId");
+//			em.createQuery(hql)
+//				.setParameter("userId", attend.getUser_id())
+//				.setParameter("eventId", attend.getEvent_id());
+			Session sess = em.unwrap(Session.class);
+	        Transaction trans = sess.beginTransaction();
+	        Attendants pullAttendant = sess.get(Attendants.class, attend.getAttendant_id());
+	        if (attend.getUser_id() == pullAttendant.getUser_id() && attend.getEvent_id() == pullAttendant.getEvent_id()) {
+	        	sess.delete(pullAttendant);
+	        	trans.commit();
+	        	return 1;
+	        }
+	        
+	        return 0;
+		} catch (NoResultException | NullPointerException e) {
+			e.printStackTrace();
+			System.out.println("Error Deleting Attendants record, NoResultException");
+			return 0;
+		}
+	}
 }

@@ -1,9 +1,11 @@
 package project2.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +37,10 @@ public class EventService {
 	 * @return
 	 */
 	@Transactional
-	public Event createEvent(Planner newEvent) {
+	public Event createEvent(Planner newEvent){
 		Event savedEvent = eventRepo.save(newEvent.getClientRequest());
-
 		System.out.println(savedEvent.toString());
-		System.out.println("Service Attempting Attendants creation");
 		Attendants attend = mapEventCreationAttend(newEvent.getUserId(), savedEvent.getEvent_id());
-		System.out.println("Service Saving Attendants: " + attend.toString());
 		attendDao.saveAttendant(attend);
 		return savedEvent;
 	}

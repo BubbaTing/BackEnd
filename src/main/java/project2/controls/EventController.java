@@ -89,7 +89,7 @@ public class EventController {
 	
 	//6 ==> Returns an Event given its event_id
 	/**
-	 * Returns a list of events that a given user_id created.
+	 * Returns an event given its event_id
 	 */
 	@GetMapping("/6/{eventid}")
 	@ResponseStatus(HttpStatus.OK)

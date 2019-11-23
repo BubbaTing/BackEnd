@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Types {
+public class EventTypes {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private int type_id;
@@ -54,7 +54,7 @@ public class Types {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Types other = (Types) obj;
+		EventTypes other = (EventTypes) obj;
 		if (type_description == null) {
 			if (other.type_description != null)
 				return false;
@@ -70,13 +70,13 @@ public class Types {
 		return "Types [type_id=" + type_id + ", type_description=" + type_description + "]";
 	}
 
-	public Types(int type_id, String type_description) {
+	public EventTypes(int type_id, String type_description) {
 		super();
 		this.type_id = type_id;
 		this.type_description = type_description;
 	}
 
-	public Types() {
+	public EventTypes() {
 		super();
 	}
     
