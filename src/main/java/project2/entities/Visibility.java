@@ -14,13 +14,13 @@ public class Visibility {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int visibility_id;
-	
+
 	@Column(nullable = false, length = 25)
 	private String visibility_description;
-	
+
     @OneToMany(mappedBy="visibility")
     private Set<Event> event;
-    
+
 	public Visibility(int visibility_id, String visibility_description, Set<Event> event) {
 		super();
 		this.visibility_id = visibility_id;
@@ -95,5 +95,5 @@ public class Visibility {
 	public Visibility() {
 		super();
 	}
-	
+
 }
