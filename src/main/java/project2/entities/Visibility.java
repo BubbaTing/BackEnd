@@ -16,35 +16,31 @@ public class Visibility {
 	private int visibility_id;
 	
 	@Column(nullable = false, length = 25)
-	private String user_role_description;
+	private String visibility_description;
 	
     @OneToMany(mappedBy="visibility")
     private Set<Event> event;
-
-	public int getVisibility_id() {
-		return visibility_id;
-	}
-
-	public void setVisibility_id(int visibility_id) {
+    
+	public Visibility(int visibility_id, String visibility_description, Set<Event> event) {
+		super();
 		this.visibility_id = visibility_id;
+		this.visibility_description = visibility_description;
+		this.event = event;
 	}
 
-	public String getUser_role_description() {
-		return user_role_description;
-	}
 
-	public void setUser_role_description(String user_role_description) {
-		this.user_role_description = user_role_description;
-	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((user_role_description == null) ? 0 : user_role_description.hashCode());
+		result = prime * result + ((event == null) ? 0 : event.hashCode());
+		result = prime * result + ((visibility_description == null) ? 0 : visibility_description.hashCode());
 		result = prime * result + visibility_id;
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -55,26 +51,46 @@ public class Visibility {
 		if (getClass() != obj.getClass())
 			return false;
 		Visibility other = (Visibility) obj;
-		if (user_role_description == null) {
-			if (other.user_role_description != null)
+		if (event == null) {
+			if (other.event != null)
 				return false;
-		} else if (!user_role_description.equals(other.user_role_description))
+		} else if (!event.equals(other.event))
+			return false;
+		if (visibility_description == null) {
+			if (other.visibility_description != null)
+				return false;
+		} else if (!visibility_description.equals(other.visibility_description))
 			return false;
 		if (visibility_id != other.visibility_id)
 			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Visibility [visibility_id=" + visibility_id + ", user_role_description=" + user_role_description + "]";
+
+
+	public int getVisibility_id() {
+		return visibility_id;
 	}
 
-	public Visibility(int visibility_id, String user_role_description) {
-		super();
+
+
+	public void setVisibility_id(int visibility_id) {
 		this.visibility_id = visibility_id;
-		this.user_role_description = user_role_description;
 	}
+
+
+
+	public String getVisibility_description() {
+		return visibility_description;
+	}
+
+
+
+	public void setVisibility_description(String visibility_description) {
+		this.visibility_description = visibility_description;
+	}
+
+
 
 	public Visibility() {
 		super();
