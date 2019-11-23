@@ -74,7 +74,7 @@ public class UserDao {
      */
     public Users getUserByCred(Credentials cred) {
         Session sess = em.unwrap(Session.class);
-        //Use Criteria here 
+        
         CriteriaBuilder cb = sess.getCriteriaBuilder();
         CriteriaQuery<Users> cr = cb.createQuery(Users.class);
         Root<Users> root = cr.from(Users.class);
@@ -87,7 +87,7 @@ public class UserDao {
             System.out.println("User auth retrieved no users from DB...");
             return null;
         }
-
+        
         Users user = results.get(0);
         byte[] hash = passServ.genHash(user.getSalt(), cred.getPassword());
 

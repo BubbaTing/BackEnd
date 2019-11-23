@@ -74,19 +74,22 @@ public class EventDao {
 		Session eventsess = em.unwrap(Session.class);
 		Transaction trans = eventsess.beginTransaction();
 		
-		Event event = eventsess.get(Event.class, party.getEvent_id());
-		System.out.println("Before updating...");
-		event.setTitle(party.getTitle());
-		event.setAddress(party.getAddress());
-		//event.setCreated(party.getCreated());
-		event.setStartTime(party.getStartTime());
-		event.setEndTime(party.getEndTime());
-		//event.setImgAddr(party.getImgAddr());
-		event.setDescription(party.getDescription());
-		event.setType(party.getType());
-		event.setVisibility(party.getVisibility());
+		System.out.println("Incoming event_id: " + party.getEvent_id());
 		
-		eventsess.update(event);//saveorUpdate(party);
+//		Event event = eventsess.get(Event.class, party.getEvent_id());
+//		System.out.println("Before updating...");
+//		event.setEvent_id(party.getEvent_id());
+//		event.setTitle(party.getTitle());
+//		event.setAddress(party.getAddress());
+//		event.setCreated(party.getCreated());
+//		event.setStartTime(party.getStartTime());
+//		event.setEndTime(party.getEndTime());
+//		event.setImgAddr(party.getImgAddr());
+//		event.setDescription(party.getDescription());
+//		event.setType(party.getType());
+//		event.setVisibility(party.getVisibility());
+		
+		eventsess.merge(party);
 		System.out.println("Updated");
 		trans.commit();
 	}
