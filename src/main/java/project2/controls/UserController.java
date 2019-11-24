@@ -26,12 +26,12 @@ public class UserController {
 
     UserService userService;
 
-    @PostMapping("users/1")
+    @PostMapping("/1")
     @ResponseStatus(HttpStatus.CREATED)
     public UserResponse createUser(@RequestBody UserRegistration regreq) {
         System.out.println("Attempting User Write...");
-        Users user = userService.createUser(regreq);
-        return new UserResponse(user);
+        UserResponse uresp = userService.createUser(regreq);
+        return uresp;
     }
 	
 	
@@ -42,8 +42,8 @@ public class UserController {
         this.userService = userServ;
     }
     
-	//2 ==> getting the number of attendants per event
-	@PostMapping("users/2")
+	//2 ==> Returns a list of users attending an event given its event_id
+	@PostMapping("/2")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public List<Users> numberOfAttendantsPerEvent(@RequestBody int party) {
 		System.out.println("Event Updated in Progress");

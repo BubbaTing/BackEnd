@@ -1,8 +1,11 @@
 package project2.services;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,13 +14,13 @@ import project2.daos.AttendantDao;
 import project2.daos.EventDao;
 import project2.entities.Attendants;
 import project2.entities.Event;
-import project2.entities.Users;
 import project2.models.Planner;
 
 @Service
 public class EventService {
 	EventDao eventRepo;
 	AttendantDao attendDao;
+	Date date = new Date();
 	
 	
 	@Autowired
@@ -27,26 +30,44 @@ public class EventService {
 		this.attendDao = attendDao;
 	}
 
-
-	@Transactional
-	public Event createEvent(Event party) {
-		return eventRepo.save(party);
-	}
-	
-	@Transactional
-	public Event getEventById(int id ) {
-		return eventRepo.getEventById(id);
-	}
-	
-	//TODO - relies on Attendants Table
 	/**
-	 * Returns an arraylist of Events given a userID
+	 * Saves an incoming event and creates a new Attendants record with the creator attending an event. 
+	 * Then saves the Attendants object.
+	 * @param newEvent
+	 * @return
+	 */
+	@Transactional
+	public Event createEvent(Planner newEvent){
+		Event savedEvent = eventRepo.save(newEvent.getClientRequest());
+		System.out.println(savedEvent.toString());
+		Attendants attend = mapEventCreationAttend(newEvent.getUserId(), savedEvent.getEvent_id());
+		attendDao.saveAttendant(attend);
+		return savedEvent;
+	}
+	
+	/**
+	 * Maps a user_id and event_id into a new Attendants object with a user_role_id of 1 (creator).
+	 * Then returns the new Attendants object.
+	 * @param userId
+	 * @param event_id
+	 * @return
+	 */
+	private Attendants mapEventCreationAttend(int userId, int event_id) {
+		Attendants attend = new Attendants();
+		attend.setUser_id(userId);
+		attend.setEvent_id(event_id);
+		attend.setUser_role_id(1);
+		return attend;
+	}
+
+	/**
+	 * Returns an event given its event_id.
 	 * @param id
 	 * @return
 	 */
 	@Transactional
-	public ArrayList<Event> getUsersEvents(int id ){
-		return eventRepo.getUsersEvents(id);
+	public Event getEventById(int id ) {
+		return eventRepo.getEventById(id);
 	}
 
 	
@@ -110,10 +131,14 @@ public class EventService {
 	 */
 	public List<Event> getEventsByCreatorId(int userid) {
 		List<Attendants> attends= attendDao.getAttendsListByCreatorId(userid);
+		if (attends == null) return null;
+		
 		ArrayList<Integer> eventids = new ArrayList<Integer>();
 		  for(Attendants i: attends) {
 			 eventids.add(i.getEvent_id());
 		}
+		
+		if (eventids.size() == 0) return null;
 		List<Event> events = eventRepo.getEventsByUserId(eventids);
 		
 		return events;

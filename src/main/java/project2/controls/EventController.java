@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,11 @@ public class EventController {
 	}
 
 	//1 ==> Create Event
-	@PostMapping("events/1")
+	@PostMapping("1")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Event createEvent(@RequestBody Event party) {
-		System.out.println("Event Created in Progress");
-		return eventService.createEvent(party);
+	public Event createEvent(@RequestBody Planner newEvent) {
+		System.out.println("Attempting Event Creation...");
+		return eventService.createEvent(newEvent);
 	}
 	
 	//2 ==> Update Event
@@ -43,7 +44,7 @@ public class EventController {
 	 * @param party
 	 * @return
 	 */
-	@PostMapping("events/2")
+	@PostMapping("/2")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public int updateMyEvent(@RequestBody Planner party) {
 		System.out.println("Event Updated in Progress");
@@ -56,7 +57,7 @@ public class EventController {
 	 * @param party
 	 * @return
 	 */
-	@PostMapping("events/3")
+	@PostMapping("/3")
 	@ResponseStatus(HttpStatus.OK)
 	public int deleteMyEvent(@RequestBody Planner party) {
 		System.out.println("Event Updated in Progress");
@@ -67,21 +68,33 @@ public class EventController {
 	/**
 	 * Returns a list of events that a given user_id is attending.
 	 */
-	@GetMapping("events/4")
+	@GetMapping("/4/{userid}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Event> getEventsByUserId(@RequestBody int userid){
+	public List<Event> getEventsByUserId(@PathVariable int userid){
+		
 		System.out.println("Retrieving Events by UserId...");
 		return eventService.getEventsByUserId(userid);
 	}
 	
 	//5 ==> Returns the list of Events a user created
 	/**
-	 * Returns a list of events that a given user_id is attending.
+	 * Returns a list of events that a given user_id created.
 	 */
-	@GetMapping("events/5")
+	@GetMapping("/5/{userid}")
 	@ResponseStatus(HttpStatus.OK)
-	public List<Event> getEventsByCreatorId(@RequestBody int userid){
+	public List<Event> getEventsByCreatorId(@PathVariable int userid){
 		System.out.println("Retrieving Events by CreatorId...");
 		return eventService.getEventsByCreatorId(userid);
+	}
+	
+	//6 ==> Returns an Event given its event_id
+	/**
+	 * Returns an event given its event_id
+	 */
+	@GetMapping("/6/{eventid}")
+	@ResponseStatus(HttpStatus.OK)
+	public Event getEventByEventId(@PathVariable int eventid){
+		System.out.println("Retrieving Events by EventId...");
+		return eventService.getEventById(eventid);
 	}
 }

@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import project2.entities.Event;
-import project2.entities.Users;
 
 @Component
 public class EventDao {
@@ -30,14 +29,11 @@ public class EventDao {
 	 * @param party
 	 * @return
 	 */
-	public Event save(Event party) {
-		Session eventsess = em.unwrap(Session.class);
-		Event event = newEvent(party);
-		
-		eventsess.persist(event);
-		
-		
-		return event;
+	public Event save(Event event) {
+		Session sess = em.unwrap(Session.class);
+		Event newEvent = newEvent(event);	
+		sess.persist(newEvent);
+		return newEvent;
 	}
 	
 	/**
@@ -45,13 +41,13 @@ public class EventDao {
 	 * @param party
 	 * @return
 	 */
-	private Event newEvent(Event party) {
+	public Event newEvent(Event party) {
 		Event new_party = new Event();
 		new_party.setTitle(party.getTitle());
 		new_party.setType(party.getType());
 		new_party.setCreated(new Timestamp(date.getTime()));
-		new_party.setStartTime(new Timestamp(date.getTime()));
-		new_party.setEndTime(new Timestamp(date.getTime()));
+		new_party.setStartTime(party.getStartTime());
+		new_party.setEndTime(party.getEndTime());
 		new_party.setDescription(party.getDescription());
 		new_party.setLocation(party.getLocation());
 		new_party.setAddress(party.getAddress());
@@ -71,17 +67,6 @@ public class EventDao {
 	}
 
 	/**
-	 * Returns a list of Events given a userid
-	 * @param id
-	 * @return
-	 */
-	public ArrayList<Event> getUsersEvents(int id) {
-		Session sess = em.unwrap(Session.class);
-		
-		return null;
-	}
-
-	/**
 	 * Update the event row with the input party
 	 * @param party
 	 */
@@ -89,19 +74,22 @@ public class EventDao {
 		Session eventsess = em.unwrap(Session.class);
 		Transaction trans = eventsess.beginTransaction();
 		
-		Event event = eventsess.get(Event.class, party.getEvent_id());
-		System.out.println("Before updating...");
-		event.setTitle(party.getTitle());
-		event.setAddress(party.getAddress());
-		//event.setCreated(party.getCreated());
-		event.setStartTime(party.getStartTime());
-		event.setEndTime(party.getEndTime());
-		//event.setImgAddr(party.getImgAddr());
-		event.setDescription(party.getDescription());
-		event.setType(party.getType());
-		event.setVisibility(party.getVisibility());
+		System.out.println("Incoming event_id: " + party.getEvent_id());
 		
-		eventsess.update(event);//saveorUpdate(party);
+//		Event event = eventsess.get(Event.class, party.getEvent_id());
+//		System.out.println("Before updating...");
+//		event.setEvent_id(party.getEvent_id());
+//		event.setTitle(party.getTitle());
+//		event.setAddress(party.getAddress());
+//		event.setCreated(party.getCreated());
+//		event.setStartTime(party.getStartTime());
+//		event.setEndTime(party.getEndTime());
+//		event.setImgAddr(party.getImgAddr());
+//		event.setDescription(party.getDescription());
+//		event.setType(party.getType());
+//		event.setVisibility(party.getVisibility());
+		
+		eventsess.merge(party);
 		System.out.println("Updated");
 		trans.commit();
 	}
@@ -127,13 +115,27 @@ public class EventDao {
 	 * @return
 	 */
 	public List<Event> getEventsByUserId(ArrayList<Integer> eventids) {
-      	String hql = "FROM Event WHERE event_id IN :eventIds";
-		List<Event> events = em.createQuery(hql, Event.class)
-				.setParameter("eventIds", eventids)
-				.getResultList();
-		return events;  
+		try {
+			String hql = "FROM Event WHERE event_id IN :eventIds";
+			List<Event> events = em.createQuery(hql, Event.class)
+					.setParameter("eventIds", eventids)
+					.getResultList();
+			return events;  
+		} catch (NullPointerException e){
+			e.printStackTrace();
+			return null;
+		}
 	}
-
-
-
+	
+//	public int getMaxEventId() {
+//		String hql = "SELECT event_id FROM Event";
+//		List<Integer> eventids = em.createQuery(hql, Integer.class)
+//						.getResultList();
+//		int max = 0;
+//		for(Integer i: eventids) {
+//			if (i > max) max = i;
+//		}
+//		System.out.println("Max EventID: " + (max + 1));
+//		return max + 1;
+//	}
 }

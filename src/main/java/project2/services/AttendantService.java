@@ -85,5 +85,9 @@ public class AttendantService {
 	public Attendants updateAttendant(Attendants attend) {
 		return attendDao.updateAttendant(attend);
 	}
+	
+	public int deleteAttentands(Attendants attend) {
+		return attendDao.deleteAttendants(attend);
+	}
 
 }

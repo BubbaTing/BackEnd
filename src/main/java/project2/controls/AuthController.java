@@ -30,9 +30,12 @@ public class AuthController {
     public UserResponse authCredentials(@RequestBody Credentials cred, HttpServletResponse response) {
         System.out.println("Attempting User Auth...");
         Users user = userService.getUserByCred(cred);
-        UserResponse uresp = new UserResponse(user);
-        uresp.setJwt(jwtServ.signJWT(user));
-        return uresp;
+        if(user != null) {
+        	UserResponse uresp = new UserResponse(user);
+        	uresp.setJwt(jwtServ.signJWT(user));
+        	return uresp;
+        } 
+        return null;
     }
 
     @Autowired

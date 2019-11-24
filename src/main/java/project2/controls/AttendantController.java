@@ -3,6 +3,7 @@ package project2.controls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,19 @@ public class AttendantController {
 	public Attendants updateAttendants(@RequestBody Attendants attend) {
 		System.out.println("Attempting Attendant Update...");
 		return attendServ.updateAttendant(attend);
+	}
+	
+	/**
+	 * Deletes an Attendants record given the attendants record.
+	 * @param attend
+	 * @return
+	 */
+	@DeleteMapping
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(path="/attend/3")
+	public int deleteAttendants(@RequestBody Attendants attend) {
+		System.out.println("Attempting Attendant Update...");
+		return attendServ.deleteAttentands(attend);
 	}
 	
 	@Autowired

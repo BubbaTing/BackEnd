@@ -62,18 +62,20 @@ public class EventControllerTest {
 	public void insertingNewEvent() throws Exception{
 		//create dummy object to be tested with
 		// id is not set since it will be auto generated
-		Event event = new Event();
-		event.setTitle("mockTitle1");
-		event.setType(2);
-		event.setDescription("mockDescription1");
-		event.setLocation("mockLocation1");
-		event.setAddress("mockAddress1");
-		event.setVisibility(3);
-		event.setImgAddr("mockPicture1");
+		Planner event = new Planner();
+		Event party = new Event();
+		event.setClientRequest(party);
+		event.getClientRequest().setTitle("mockTitle1");
+		event.getClientRequest().setType(2);
+		event.getClientRequest().setDescription("mockDescription1");
+		event.getClientRequest().setLocation("mockLocation1");
+		event.getClientRequest().setAddress("mockAddress1");
+		event.getClientRequest().setVisibility(3);
+		event.getClientRequest().setImgAddr("mockPicture1");
 		
 		//Stubbing the implementation of the ___ method
 		when(mockEventService.createEvent(event))
-			.thenReturn(event);
+			.thenReturn(party);
 		
 		this.mockMvc.perform(post("/events/1")
 			.contentType(MediaType.APPLICATION_JSON)
