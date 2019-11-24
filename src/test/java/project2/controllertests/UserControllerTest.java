@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -80,19 +81,19 @@ public class UserControllerTest {
 		.andDo(print());
 	
 	}
-	/*
+	
 	@Test
-	private void numberOfAttendantsPerEventTest() throws Exception{
-		
+	public void numberOfAttendantsPerEventTest() throws Exception{
+		List<Users> user = (List<Users>) new Users();
 		Event event = new Event();
 		event.setEvent_id(4);
 		when(userServiceTest.findNumberOfAttendants(4))
-		.thenCallRealMethod();
+		.thenReturn(user);
 		
-		((MockMvc) this.mockMvc).perform(post("/users/2")
+		this.mokMvc.perform(post("/users/2")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(om.writeValueAsString(event)))
 				.andExpect(status().is(HttpStatus.OK.value()));
 	}
-	*/
+	
 }
