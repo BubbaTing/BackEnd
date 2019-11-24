@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,7 @@ import project2.controls.UserController;
 import project2.entities.Event;
 import project2.entities.Users;
 import project2.models.UserRegistration;
+import project2.models.UserResponse;
 import project2.services.UserService;
 
 @RunWith(SpringRunner.class)
@@ -50,8 +52,6 @@ public class UserControllerTest {
 	
 	@Autowired
 	ObjectMapper om;
-
-	private Object mockMvc;
 	
 	@Before 
 	public void setup() {
@@ -62,20 +62,26 @@ public class UserControllerTest {
 	
 	@Test
 	public void CreateNewUser() throws Exception{
-		Users user = new Users();
-		Date date = new Date();
+		UserResponse user = new UserResponse();
 		UserRegistration regreq = new UserRegistration();
-		user.setCreatedDate(new Timestamp(date.getTime()));
+		regreq.setFirstName("mock first name");
+		regreq.setLastName("mock last name");
+		regreq.setPassword("mock password");
+		regreq.setConfirmPassword("mock password");
+		regreq.setAvatar_url("mock pic link");
+		
 		user.setFirstname(regreq.getFirstName());
-		user.setLastname(regreq.getLastName());
 		user.setEmail(regreq.getEmail());
-		user.setAvatarURL(regreq.getAvatar_url());
+		user.setUserid(1);
+		user.setAvatar(regreq.getAvatar_url());
+		user.setJwt("mock value");
+		
 		when(userServiceTest.createUser(regreq))
 		.thenReturn(user);
 		
 		this.mokMvc.perform(post("/users/1")
-		.contentType(MediaType.APPLICATION_JSON)
-		.content(om.writeValueAsString(user)))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(om.writeValueAsString(regreq)))
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(status().is(HttpStatus.CREATED.value()))
 		.andDo(print());
@@ -84,16 +90,16 @@ public class UserControllerTest {
 	
 	@Test
 	public void numberOfAttendantsPerEventTest() throws Exception{
-		List<Users> user = (List<Users>) new Users();
+		List<Users> user = new ArrayList<Users>();
 		Event event = new Event();
 		event.setEvent_id(4);
-		when(userServiceTest.findNumberOfAttendants(4))
+		when(userServiceTest.findNumberOfAttendants(event.getEvent_id()))
 		.thenReturn(user);
 		
 		this.mokMvc.perform(post("/users/2")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(om.writeValueAsString(event)))
-				.andExpect(status().is(HttpStatus.OK.value()));
+				.content(om.writeValueAsString(event.getEvent_id())))
+				.andExpect(status().is(HttpStatus.ACCEPTED.value()));
 	}
 	
 }
